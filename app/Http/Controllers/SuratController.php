@@ -40,12 +40,27 @@ class SuratController extends Controller
         return view('surat.cuti.formcuti', [
             "title" => 'Form Cuti',
             "sub_title" => "PNS",
+            "surat" => $pegawai->surat,
+            "cuti" => $pegawai->cuti,
             "pegawai" => $pegawai,
             "j_cuti" => JCuti::all(),
             // "jabatan" => Jabatan :: all(),
             'active' => "surat_cuti"
         ]);
     }
+    
+
+    // public function cuti( Pegawai $pegawai)
+    // {
+    //     return view('surat.cuti.formcuti', [
+    //         "title" => 'Form Cuti',
+    //         "sub_title" => "PNS",
+    //         "pegawai" => $pegawai,
+    //         "j_cuti" => JCuti::all(),
+    //         // "jabatan" => Jabatan :: all(),
+    //         'active' => "surat_cuti"
+    //     ]);
+    // }
 
     public function rekom(Pegawai $pegawai)
     {

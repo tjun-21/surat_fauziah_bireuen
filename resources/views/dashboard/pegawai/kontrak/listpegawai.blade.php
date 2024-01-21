@@ -54,8 +54,8 @@
                             <button class="badge bg-danger" onclick="return confirm('apakah anda yakin ingin menghapus?')"><span data-feather="x-circle"></span></button>
                           </form>
                           
-                          <a href="/detailkontrak/{{ $pegawai->id }}" class="badge btn-primary" ><span data-feather="info"></span> </a> 
-                          <a href="/karyawan/pns/{{ $pegawai->nik }}" class="badge btn-success" ><span data-feather="file-text"></span> </a> 
+                          {{-- <a href="/detailkontrak/{{ $pegawai->id }}" class="badge btn-primary" ><span data-feather="info"></span> </a>  --}}
+                          <a href="/karyawan/kontarak/{{ $pegawai->nik }}" class="badge btn-success" ><span data-feather="file-text"></span> </a> 
                     
 
                     

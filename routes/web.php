@@ -58,7 +58,8 @@ Route::get('/cuti', [CutiController::class, 'index']);
 
 // route make surat Cuti
 // Route::get('/cuti/karyawan/{kategori:slug}', [CutiController::class, 'karyawan']);
-Route::get('/surat/{pegawai:id}', [SuratController::class, 'cuti']);
+Route::get('/surat/pns/{pegawai:id}', [SuratController::class, 'cuti']);
+Route::get('/surat/p3k/{pegawai:id}', [SuratController::class, 'cuti']);
 
 
 // Route::get('/surat/pns/{pegawai:nik}/cuti', [SuratController::class, 'cuti']);

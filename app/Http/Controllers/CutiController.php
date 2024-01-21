@@ -21,9 +21,6 @@ class CutiController extends Controller
             // "jabatan" => Jabatan :: all(),
             'active' => "list-surat"
         ]);
-        $cuti =  Cuti::all();
-        dd($cuti); 
-      
     }
 
     public function karyawan(Kategori $kategori)
