@@ -15,6 +15,7 @@ use App\Http\Controllers\Crudp3kController;
 use App\Http\Controllers\CutipnsController;
 
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\BidangController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\FungsionalController;
 use App\Http\Controllers\UnitController;
@@ -84,6 +85,7 @@ Route::get('/golongan/checkSlug', [GolonganController::class, 'checkSlug']);
 Route::get('/fungsional/checkSlug', [FungsionalController::class, 'checkSlug']);
 Route::get('/unit/checkSlug', [UnitController::class, 'checkSlug']);
 Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
+Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
 
 //route menampilkan list pegawai
 Route::get('/PNS/{kategori:slug}', [CrudpnsController::class, 'kategori']);
@@ -110,6 +112,7 @@ Route::post('/pns/import_excel', [CrudpnsController::class, 'import_excel']);
 
 //crud data master
 Route::resource('/jabatan', JabatanController::class);
+Route::resource('/bidang',BidangController::class);
 Route::resource('/golongan', GolonganController::class);
 Route::resource('/fungsional', FungsionalController::class);
 Route::resource('/unit', UnitController::class);

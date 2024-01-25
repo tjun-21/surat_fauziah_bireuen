@@ -46,9 +46,27 @@ class CutiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCutiRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $validatedData = $request->validate([
+           
+            'pegawai_id' => 'required|max:255',
+            'jcuti_id'    => 'required',
+            'alasan' => 'required',
+            'tgl_mulai' => 'required',
+            'alamat_cuti' => 'required',
+            'alasan' => 'required',
+            'tgl_akhir' => 'required'
+          
+
+
+        ]);
+
+        // $validatedData['id'] = auth()->user()->id; 
+
+        jabatan :: create ($validatedData);
+        return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success','data berhasil ditambahkan');
     }
 
     /**

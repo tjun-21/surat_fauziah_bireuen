@@ -60,7 +60,8 @@ class CutipnsController extends Controller
         // $validatedData['id'] = auth()->user()->id; 
 
         cuti :: create ($validatedData);
-        return redirect('/cuti')->with('success','data cuti berhasil ditambahkan');
+        
+        return redirect()->back()->with('success','data cuti berhasil ditambahkan');
     }
 
     /**

@@ -20,6 +20,10 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+    public function bidang()
+    {
+        return $this->belongsTo(bidang::class);
+    }
     public function golongan()
     {
         return $this->belongsTo(Golongan::class);

@@ -46,6 +46,8 @@ class SuratController extends Controller
             "j_cuti" => JCuti::all(),
             // "jabatan" => Jabatan :: all(),
             'active' => "surat_cuti"
+
+            
         ]);
     }
     

@@ -15,7 +15,7 @@ class CreatePegawaisTable extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('nik');
             $table->bigInteger('nip')->unique();
             $table->string('nama');
             $table->string('tmp_lahir');
@@ -30,6 +30,7 @@ class CreatePegawaisTable extends Migration
             $table->foreignId('kategori_id');
             $table->foreignId('golongan_id');
             $table->foreignId('jabatan_id');
+            $table->foreignId('bidang_id');
             $table->foreignId('fungsional_id');
             $table->foreignId('unit_id');
             $table->timestamps();

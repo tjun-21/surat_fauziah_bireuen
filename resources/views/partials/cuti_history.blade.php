@@ -45,7 +45,7 @@
                               @csrf
                               <button class="badge bg-danger" onclick="return confirm('apakah anda yakin ingin menghapus?')"><span data-feather="x-circle"></span></button>
                             </form>
-                            <a href="/karyawan/print/{{ $s->id }}">Print</a>
+                            <a href="/karyawan/print/{{ $s->id }}" >Print</a>
                         </td>
                     </tr>
                   @endforeach

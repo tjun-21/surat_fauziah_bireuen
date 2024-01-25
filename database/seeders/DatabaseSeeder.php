@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Fungsional;
 use App\Models\Golongan;
 use App\Models\Jabatan;
+use app\models\bidang;
 use App\Models\Kategori;
 use App\Models\Pegawai;
 use App\Models\Unit;
@@ -12,6 +13,7 @@ use App\Models\JCuti;
 use App\Models\Cuti;
 use App\Models\Surat;
 use App\Models\JSurat;
+
 
 use Illuminate\Database\Seeder;
 
@@ -39,23 +41,38 @@ class DatabaseSeeder extends Seeder
         Jabatan::create([
             'nama' => 'Manager',
             'slug' => 'manager',
-            'kategori_id' => 1
+            'kategori_id' => 1,
+            'bidang_id'=>2 
         ]);
         Jabatan::create([
             'nama' => 'Staff',
             'slug' => 'staf',
-            'kategori_id' => 1
+            'kategori_id' => 1,
+            'bidang_id'=>1
+        ]);
+
+        \App\Models\bidang::create([
+            'nama' => 'umum',
+            'slug' => 'umum',
+         
+        ]);
+        \App\Models\bidang::create([
+            'nama' => 'pelayanan',
+            'slug' => 'pelayanan',
+       
         ]);
 
 
         Golongan::create([
             'nama' => 'VI',
             'slug' => 'vi',
+            'pangkat'=>'ahli madya',
             'kategori_id' => 1
         ]);
         Golongan::create([
             'nama' => 'V',
             'slug' => 'v',
+            'pangkat'=>'penata',
             'kategori_id' => 1
         ]);
 

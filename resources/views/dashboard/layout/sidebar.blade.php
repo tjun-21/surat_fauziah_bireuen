@@ -102,21 +102,28 @@
             <div class="collapse" id="collapseExampledat">
             <div class="card">
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <a href="/jabatan"  class="nav-link"><p class="text-dark m-0">Jabatan</p></a>
-                </li>
-                <li class="list-group-item">
-                    <a href="/fungsional"  class="nav-link"><p class="text-dark m-0">Fungsional</p></a>
-                </li>
-                <li class="list-group-item">
-                    <a href="/golongan" class="nav-link "><p class="text-dark m-0">Golongan</p></a>
-                </li>
+
+                    <li class="list-group-item">
+                        <a href="/kategori" class="nav-link "><p class="text-dark m-0">Kategori </p></a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/fungsional"  class="nav-link"><p class="text-dark m-0">Fungsional</p></a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/golongan" class="nav-link "><p class="text-dark m-0">Golongan</p></a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/jabatan"  class="nav-link"><p class="text-dark m-0">Jabatan</p></a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/bidang"  class="nav-link"><p class="text-dark m-0">Bidang</p></a>
+                    </li>
+
                 <li class="list-group-item">
                     <a href="/unit" class="nav-link "><p class="text-dark m-0">Unit Kerja</p></a>
                 </li>
-                <li class="list-group-item">
-                    <a href="/kategori" class="nav-link "><p class="text-dark m-0">Kategori </p></a>
-                </li>
+
+               
                 </ul>
             </div>
             </div>

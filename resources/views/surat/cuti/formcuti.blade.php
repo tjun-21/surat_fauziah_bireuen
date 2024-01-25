@@ -64,8 +64,11 @@
                         
                     </div>
                 </div>
+            
             </div>
     </div>
   </div>
+ 
+
   @include('partials.cuti_history')
 @endsection

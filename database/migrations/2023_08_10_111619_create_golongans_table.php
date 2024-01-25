@@ -16,6 +16,7 @@ class CreateGolongansTable extends Migration
         Schema::create('golongans', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
+            $table->string('pangkat');
             $table->string('slug')->unique();
             $table->foreignId('kategori_id');
             $table->timestamps();

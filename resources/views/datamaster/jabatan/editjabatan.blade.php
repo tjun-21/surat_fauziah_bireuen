@@ -42,7 +42,19 @@
           @endif
         @endforeach
       </select>
-   
+  </div>
+
+  <div class="form-group">
+    <label for="kategori">Bidang</label>
+    <select class="form-select" name="bidang_id">
+        @foreach($bidangs as $bidang)
+          @if(old('bidang_id',$jabatan->bidang_id)== $bidangs->id)
+            <option value="{{ $bidang->id }}" selected> {{ $bidang->nama }}</option>
+          @else
+          <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+          @endif
+        @endforeach
+      </select>
   </div>
 
 <button type="submit" class="btn btn-primary mt-3">Edit Jabatan</button>

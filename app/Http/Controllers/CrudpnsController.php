@@ -9,6 +9,7 @@ use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\Fungsional;
 use App\Models\Unit;
+use App\Models\bidang;
 
 use App\Models\Cuti;
 use App\Models\Surat;
@@ -35,9 +36,8 @@ class CrudpnsController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
-            
-       
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
             ]);
     }
 
@@ -49,7 +49,8 @@ class CrudpnsController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
        
             ]);
     }
@@ -117,7 +118,8 @@ class CrudpnsController extends Controller
             
             'jabatan_id' => 'required',
             'fungsional_id' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'bidang_id'=>'required'
 
         ]);
 

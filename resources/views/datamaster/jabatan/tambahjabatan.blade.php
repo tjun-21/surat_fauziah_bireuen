@@ -40,6 +40,16 @@
    
   </div>
 
+  <div class="form-group">
+    <label for="kategori">Bidang</label>
+    <select class="form-select" name="bidang_id">
+        @foreach($bidangs as $bidangs)
+            <option value="{{ $bidangs->id }}"> {{ $bidangs->nama }}</option>
+        @endforeach
+      </select>
+   
+  </div>
+
 <button type="submit" class="btn btn-primary mt-3">Tambah Jabatan</button>
 </form>
 

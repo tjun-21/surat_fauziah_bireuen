@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Kategori;
+use App\Models\bidang;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -30,7 +31,8 @@ class JabatanController extends Controller
     {
         return view('datamaster.jabatan.tambahjabatan',[
             'active' => 'datamaster',
-            'categories' => kategori::all()
+            'categories' => kategori::all(),
+            'bidangs'=>bidang::all()
        
             ]);
     }
@@ -45,7 +47,8 @@ class JabatanController extends Controller
            
             'nama' => 'required|max:255',
             'slug'    => 'required|unique:jabatans',
-            'kategori_id' => 'required'
+            'kategori_id' => 'required',
+            'bidang_id' => 'required'
 
         ]);
 
@@ -71,7 +74,8 @@ class JabatanController extends Controller
         return view('datamaster.jabatan.editjabatan',[
             'active' => 'datamaster',
             'jabatan' => $jabatan,
-            'categories' => kategori::all()
+            'categories' => kategori::all(),
+            'bidangs'=>bidang::all()
        
             ]);
     }
@@ -84,7 +88,8 @@ class JabatanController extends Controller
         $rules =[
            
             'nama' => 'required|max:255',
-            'kategori_id' => 'required'
+            'kategori_id' => 'required',
+            'bidang_id'=>'required'
 
         ];
         if($request->slug != $jabatan  ->slug){

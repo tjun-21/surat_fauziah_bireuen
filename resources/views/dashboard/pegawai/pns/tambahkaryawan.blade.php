@@ -135,6 +135,16 @@
       </select>
   </div>
 
+  <div class="form-group">
+    <label for="fungsional_id">Bidang</label>
+    <select class="form-select" name="bidang_id">
+      <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+        @foreach($bidangs as $bidang)
+            <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+        @endforeach
+      </select>
+  </div>
+
   <button type="submit" class="btn btn-primary mt-4 ">Tambah Karyawan</button>
 
 </div>
