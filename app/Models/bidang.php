@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models;
-use app\models\jabatan;
+use app\models\Jabatan;
+use app\models\Pegawai;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class bidang extends Model
+class Bidang extends Model
 {
     use HasFactory;
     use Sluggable;
@@ -17,11 +18,11 @@ class bidang extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(jabatan::class);
+        return $this->belongsTo(Jabatan::class);
     }
     public function pegawai()
     {
-        return $this->Hasmany(pegawai::class);
+        return $this->Hasmany(Pegawai::class);
     }
 
     public function sluggable(): array

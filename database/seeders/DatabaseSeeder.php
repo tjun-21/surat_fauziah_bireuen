@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Fungsional;
 use App\Models\Golongan;
 use App\Models\Jabatan;
-use app\models\bidang;
+use App\Models\Bidang;
 use App\Models\Kategori;
 use App\Models\Pegawai;
 use App\Models\Unit;
@@ -51,12 +51,12 @@ class DatabaseSeeder extends Seeder
             'bidang_id'=>1
         ]);
 
-        \App\Models\bidang::create([
+        Bidang::create([
             'nama' => 'umum',
             'slug' => 'umum',
          
         ]);
-        \App\Models\bidang::create([
+        Bidang::create([
             'nama' => 'pelayanan',
             'slug' => 'pelayanan',
        
