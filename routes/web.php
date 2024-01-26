@@ -88,9 +88,9 @@ Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
 Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
 
 //route menampilkan list pegawai
-Route::get('/PNS/{kategori:slug}', [CrudpnsController::class, 'kategori']);
-Route::get('/P3K/{kategori:slug}', [Crudp3kController::class, 'kategori']);
-Route::get('/Kontrak/{kategori:slug}', [CrudkontrakController::class, 'kategori']);
+Route::get('/karyawan/{kategori:slug}', [CrudpnsController::class, 'kategori']);
+Route::get('/karyawan/{kategori:slug}', [Crudp3kController::class, 'kategori']);
+Route::get('/karyawan/{kategori:slug}', [CrudkontrakController::class, 'kategori']);
 
 Route::get('/detailpns/{pegawai:id}', [CrudpnsController::class, 'detail']);
 Route::get('/detailkontrak/{pegawai:id}', [CrudkontrakController::class, 'detail']);
