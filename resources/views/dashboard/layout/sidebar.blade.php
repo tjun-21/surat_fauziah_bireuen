@@ -80,13 +80,13 @@
             <div class="card">
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a href="/karyawan/pns"  class="nav-link"><p class="text-dark m-0">PNS</p></a>
+                    <a href="/PNS/pns"  class="nav-link"><p class="text-dark m-0">PNS</p></a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/karyawan/p3k"  class="nav-link"><p class="text-dark m-0">P3K</p></a>
+                    <a href="/P3K/p3k"  class="nav-link"><p class="text-dark m-0">P3K</p></a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/karyawan/kontrak" class="nav-link "><p class="text-dark m-0">KONTRAK</p></a>
+                    <a href="/KONTRAK/kontrak" class="nav-link "><p class="text-dark m-0">KONTRAK</p></a>
                 </li>
                 </ul>
             </div>

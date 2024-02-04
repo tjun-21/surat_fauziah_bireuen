@@ -93,8 +93,6 @@
                             @csrf
                             <button class="badge bg-danger" onclick="return confirm('apakah anda yakin ingin menghapus?')"><span data-feather="x-circle"></span></button>
                           </form>
-                          
-                          {{-- <a href="" class="badge btn-primary" ><span data-feather="info"></span> </a>  --}}
                           <a href="/karyawan/pns/{{ $pegawai->id }}" class="badge btn-success" ><span data-feather="file-text"></span> </a> 
 
                         </td>

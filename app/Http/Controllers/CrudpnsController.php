@@ -57,6 +57,7 @@ class CrudpnsController extends Controller
     
     public function kategori(Kategori $kategori)
     {
+        
         return view('dashboard.pegawai.pns.listpegawai', [
             "title" => 'Karyawan',
             "sub_title" => $kategori->nama,

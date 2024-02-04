@@ -45,12 +45,12 @@ use App\Http\Controllers\SuratController;
 //     ]);
 // });
 
-Route::get('/', [LoginController::class, 'index'])->middleware('guest');
-Route::post('/', [LoginController::class, 'authenticate']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
 // route list surat 
@@ -88,9 +88,9 @@ Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
 Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
 
 //route menampilkan list pegawai
-Route::get('/karyawan/{kategori:slug}', [CrudpnsController::class, 'kategori']);
-Route::get('/karyawan/{kategori:slug}', [Crudp3kController::class, 'kategori']);
-Route::get('/karyawan/{kategori:slug}', [CrudkontrakController::class, 'kategori']);
+Route::get('/PNS/{kategori:slug}', [CrudpnsController::class, 'kategori']);
+Route::get('/P3K/{kategori:slug}', [Crudp3kController::class, 'kategori']);
+Route::get('/KONTRAK/{kategori:slug}', [CrudkontrakController::class, 'kategori']);
 
 Route::get('/detailpns/{pegawai:id}', [CrudpnsController::class, 'detail']);
 Route::get('/detailkontrak/{pegawai:id}', [CrudkontrakController::class, 'detail']);
