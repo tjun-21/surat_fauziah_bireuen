@@ -53,13 +53,13 @@ class KaryawanController extends Controller
     public function print(Cuti $cuti)
     {
         $j=$cuti->pegawai->jabatan->id;
-      
+        
         $kepala = DB::table('pegawais')
         ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
         ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
         ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
         ->where('pegawais.bidang_id', '=', $j)
-        ->where('pegawais.jabatan_id', '=', 4)
+        ->where('jabatans.nama', '=', 'kepala')
         ->get();
         $data = [
             'cuti' => $cuti,
