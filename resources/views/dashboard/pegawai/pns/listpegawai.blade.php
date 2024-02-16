@@ -81,7 +81,7 @@
                         {{-- <td>
                           <a href="{{ route ('pns.update',$pegawai->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
                         </td> --}}
-                        <td>{{ $pegawai->kategori->nama }}</td>
+                        <td>{{ $pegawai->bidang->nama }}</td>
                         <td>
                           
                        

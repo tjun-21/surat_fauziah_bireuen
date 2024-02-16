@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Cuti;
 use App\Models\Pegawai;
 use App\Models\Jabatan;
 use App\Models\Kategori;
 use App\Models\Surat;
+use App\Models\Bidang;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -49,9 +52,29 @@ class KaryawanController extends Controller
 
     public function print(Cuti $cuti)
     {
+        $j=$cuti->pegawai->jabatan->id;
+      
+        $kepala = DB::table('pegawais')
+        ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
+        ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+        ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
+        ->where('pegawais.bidang_id', '=', $j)
+        ->where('pegawais.jabatan_id', '=', 4)
+        ->get();
         $data = [
-            'cuti' => $cuti
+            'cuti' => $cuti,
+            'pegawais'=>$cuti->pegawai::all(),
+            'bidang'=>$cuti->pegawai->bidang,
+            'kabid'=> $kepala
+ 
+
         ];
+
+
+    
+  
+
+ 
         $pdf = Pdf::loadView('surat.template.cuti', $data)->setPaper('a4', 'potrait');
         return $pdf->download('surat.pdf');
 

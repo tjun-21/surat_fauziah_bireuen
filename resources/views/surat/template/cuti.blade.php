@@ -265,12 +265,13 @@
                 <td class="tg">
                     {{ $cuti->pegawai->no_hp }}
                 </td>
-                <td class="tg">Hormat Saya ?
+                <td class="tg">Hormat Saya 
                     <br>
                     <br>
                     <br>
-                    <u>{{ $cuti->pegawai->nama }}</u><br>
-                    Nip. <i>{{ $cuti->pegawai->nip }}</i>
+                    <br>
+                    {{ $cuti->pegawai->nama }}<br>
+                    Nip. {{ $cuti->pegawai->nip }}
                 </td>
             </tr>
         </table>
@@ -286,19 +287,27 @@
                 <td class="tg" width="30%">TIDAK DISETUJUI</td>
             </tr>
             <tr>
-                <td class="tg">-</td>
+                <td class="tg">.</td>
                 <td class="tg"></td>
                 <td class="tg"></td>
                 <td class="tg"></td>
             </tr>
             <tr align="center">
                 <td class="tg" colspan="3"></td>
-                <td class="tg">Kabid apa ?
+                
+                <td class="tg">Kabid Bidang {{ $bidang->nama }}
+       
                     <br>
                     <br>
                     <br>
-                    <u>Nama Kabid</u><br>
-                    Nip. 
+                    <br>
+                    @foreach ($kabid as $kabid)
+                        {{ $kabid->nama }}<br> 
+                        {{ $kabid->nip }}<br> 
+                    @endforeach
+              
+           
+               
                 </td>
             </tr>
         </table>
@@ -315,7 +324,7 @@
                 <td class="tg" width="30%">TIDAK DISETUJUI</td>
             </tr>
             <tr>
-                <td class="tg">-</td>
+                <td class="tg">.</td>
                 <td class="tg"></td>
                 <td class="tg"></td>
                 <td class="tg"></td>
@@ -326,9 +335,17 @@
                     <br>
                     <br>
                     <br>
-                    <u>Dr. Amir Addani, M.Kes</u><br>
-                    Nip. 
+                    <br>
+
+                    @foreach ($pegawais as $pegawai)
+                    @if($pegawai->jabatan->nama == 'Direktur')
+                        {{ $pegawai->nama }}<br> 
+                        {{ $pegawai->nip }}<br> 
+                    @endif
+                    @endforeach
                 </td>
+             
+            
             </tr>
         </table>
 

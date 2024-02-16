@@ -17,6 +17,7 @@
             <p>NIP       : {{ $pegawai->nip }}</p>
             <p>Nama      : {{ $pegawai->nama }}</p>
             <p>Kategori  :   {{ $pegawai->kategori->nama }}</p>
+            <p>Bidang  :   {{ $pegawai->bidang->nama }}</p>
             
           </div>
           <div class="col-md-3 col">

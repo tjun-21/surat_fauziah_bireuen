@@ -45,6 +45,8 @@ use App\Http\Controllers\SuratController;
 //     ]);
 // });
 
+Route::get('/', [LoginController::class, 'index']);
+
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
