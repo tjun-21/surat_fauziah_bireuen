@@ -18,6 +18,7 @@ class CutiController extends Controller
         return view('surat.cuti.cuti', [
             "title" => 'List Surat Cuti',
             "cuti" => Cuti::all(),
+            "pegawai" => $pegawai->kategori->nama,
             // "jabatan" => Jabatan :: all(),
             'active' => "list-surat"
         ]);

@@ -55,36 +55,36 @@
                 
             </tr>
         </table>
-        <p class="text-center mb-1 "><b><font size='2'>FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</font></b></p>
+        <p class="text-center mb-1 "><b><font size='2'>FORMULIR PERMINTAAN DAN PEMBERIAN CUTI TENAGA KONTRAK</font></b></p>
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td colspan="4" class="tg">I. DATA PEGAWAI</td>
+                <td colspan="4" class="tg px-1">I. DATA PEGAWAI</td>
             </tr>
             <tr>
-                <td width="10%" class="tg">Nama</td>
-                <td width="40%" class="tg">{{ $cuti->pegawai->nama }}</td>
-                <td width="15%" class="tg">Pangkat/Gol</td>
-                <td width="35%" class="tg">{{ $cuti->pegawai->golongan->nama }}</td>
+                <td width="10%" class="tg px-1">Nama</td>
+                <td width="40%" class="tg px-1">{{ $cuti->pegawai->nama }}</td>
+                <td width="15%" class="tg px-1">Tempat, Tanggal lahir</td>
+                <td width="35%" class="tg px-1">{{ $cuti->pegawai->tmp_lahir}}, {{ $cuti->pegawai->tgl_lahir }}</td>
             </tr>
             <tr>
-                <td class="tg">Jabatan</td>
-                <td class="tg">{{ $cuti->pegawai->jabatan->nama }}</td>
-                <td>NIP</td>
-                <td class="tg">{{ $cuti->pegawai->nip }}</td>
+                <td class="tg px-1">Ruangan</td>
+                <td class="tg px-1">{{ $cuti->pegawai->unit->nama }}</td>
+                <td>TMT Kontrak</td>
+                <td class="tg px-1">{{ $cuti->pegawai->tmt }}</td>
             </tr>
             <tr>
-                <td class="tg">Unit Kerja</td>
-                <td class="tg">{{ $cuti->pegawai->unit->nama }}</td>
-                <td class="tg">Masa Kerja</td>
+                <td class="tg px-1">Unit Kerja</td>
+                <td class="tg px-1">RSUD dr. Fauziah Bireuen</td>
+                <td class="tg"></td>
                 <td class="tg"></td>
             </tr>
         </table>
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td colspan="4" class="tg">II. JENIS CUTI YANG DIAMBIL </td>
+                <td colspan="4" class="tg px-1">II. JENIS CUTI YANG DIAMBIL </td>
             </tr>
             <tr>
-                <td width="40%" class="tg">1. Cuti Tahunan</td>
+                <td width="40%" class="tg px-1">1. Cuti Tahunan</td>
                 <td width="10%" class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-tahunan") { ?>
@@ -92,7 +92,7 @@
                        <?php }    
                     ?>
                 </td>
-                <td width="40%" class="tg">2. Cuti Besar</td>
+                <td width="40%" class="tg px-1">2. Cuti Besar</td>
                 <td width="10%" class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-besar") { ?>
@@ -102,7 +102,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="tg">3. Cuti Sakit</td>
+                <td class="tg px-1">3. Cuti Sakit</td>
                 <td class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-sakit") { ?>
@@ -110,7 +110,7 @@
                        <?php }    
                     ?>
                 </td>
-                <td>4. Cuti Melahirkan</td>
+                <td class="px-1">4. Cuti Melahirkan</td>
                 <td class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-melahirkan") { ?>
@@ -120,7 +120,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="tg">5. Cuti Karena Alasan Penting</td>
+                <td class="tg  px-1">5. Cuti Karena Alasan Penting</td>
                 <td class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-karena-alasan-penting") { ?>
@@ -128,7 +128,7 @@
                        <?php }    
                     ?>
                 </td>
-                <td class="tg">6. Cuti Diluar tanggungan Negara</td>
+                <td class="tg  px-1">6. Cuti Diluar tanggungan Negara</td>
                 <td class="tg text-center">
                     <?php 
                         if ($cuti->jcuti->slug == "cuti-diluar-tanggungan-negara") { ?>
@@ -140,19 +140,19 @@
         </table>
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td class="tg" colspan="4">III. ALASAN CUTI</td>
+                <td class="tg px-1" colspan="4">III. ALASAN CUTI</td>
             </tr>
             <tr>
-                <td colspan="4" class="tg">{{ $cuti->alasan }}</td>
+                <td colspan="4" class="tg px-1">{{ $cuti->alasan }}</td>
             </tr>
             
         </table>
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td colspan="6" class="tg">IV. LAMANYA CUTI</td>
+                <td colspan="6" class="tg px-1">IV. LAMANYA CUTI</td>
             </tr>
             <tr>
-                <td width="10%" class="tg">Selama</td>
+                <td width="10%" class="tg px-1">Selama</td>
                 <td width="15%" class="tg text-center">
                     <?php 
                             $akhir = strtotime($cuti->tgl_akhir);
@@ -162,7 +162,7 @@
                     ?>
                     {{ $selisih }} Hari
                 </td>
-                <td width="15%" class="tg">Mulai Tanggal</td>
+                <td width="15%" class="tg text-center">Mulai Tanggal</td>
                 <td width="20%" class="tg text-center">
                     {{ $cuti->tgl_mulai }}
                 </td>
@@ -175,17 +175,17 @@
 
         <table cellspacing="0" cellspacing="0"  class="p1 mb-2">
             <tr>
-                <td colspan="6" class="tg">V. CATATAN CUTI</td>
+                <td colspan="6" class="tg px-1">V. CATATAN CUTI</td>
             </tr>
             <tr>
-                <td colspan="5" class="tg">1. CUTI TAHUNAN</td>
+                <td colspan="5" class="tg px-1">1. CUTI TAHUNAN</td>
                 <td width="35%" class="tg"></td>
             </tr>
             <tr>
                 <td width="15%" colspan="2" align="center" class="tg">Tahun</td>
                 <td width="10" align="center" class="tg">Sisa</td>
                 <td width="15%" align="center" class="tg">Keterangan</td>
-                <td width="25%" class="tg">2. CUTI BESAR</td>
+                <td width="25%" class="tg px-1">2. CUTI BESAR</td>
                 <td width="35%" class="tg"></td>
                 
             </tr>
@@ -194,7 +194,7 @@
                 <td align="center" class="tg"></td>
                 <td align="center" class="tg"></td>
                 <td align="center" class="tg">2021</td>
-                <td class="tg">3. CUTI SAKIT</td>
+                <td class="tg px-1">3. CUTI SAKIT</td>
                 <td class="tg"></td>
                 
             </tr>
@@ -203,7 +203,7 @@
                 <td align="center" class="tg"></td>
                 <td align="center" class="tg"></td>
                 <td align="center" class="tg">2022</td>
-                <td  class="tg">3. CUTI MELAHIRKAN</td>
+                <td  class="tg px-1">4. CUTI MELAHIRKAN</td>
                 <td class="tg"></td>
                 
             </tr>
@@ -212,13 +212,13 @@
                 <td align="center" rowspan="2" class="tg">12</td>
                 <td align="center" rowspan="2" class="tg"></td>
                 <td align="center" rowspan="2" class="tg">2023</td>
-                <td class="tg">4. CUTI KARENA ALASAN PENTING</td>
+                <td class="tg px-1">5. CUTI KARENA ALASAN PENTING</td>
                 <td class="tg"></td>
                 
             </tr>
             <tr>
                 
-                <td width="40%" class="tg">5. CUTI DILUAR TANGGUNGAN NEGARA</td>
+                <td width="40%" class="tg px-1">6. CUTI DILUAR TANGGUNGAN NEGARA</td>
                 <td width="20%"  class="tg"></td>
                 
             </tr>
@@ -252,18 +252,18 @@
 
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td class="tg" colspan="4">VI. ALAMAT SELAMA MELAKSANAKAN CUTI</td>
+                <td class="tg px-1" colspan="4">VI. ALAMAT SELAMA MELAKSANAKAN CUTI</td>
             </tr>
-            <tr align="center">
+            <tr align="">
                 <td class="tg" colspan="2"></td>
                 {{-- <td class="tg" width="20%">PERUBAHAN****</td> --}}
-                <td class="tg" width="30%">Telp</td>
+                <td class="tg" width="30%">.</td>
                 <td class="tg" width="30%"></td>
             </tr>
             <tr align="center">
                 <td class="tg" colspan="2">{{ $cuti->alamat_cuti }}</td>
                 <td class="tg">
-                    {{ $cuti->pegawai->no_hp }}
+                    {{-- {{ $cuti->pegawai->no_hp }} --}}
                 </td>
                 <td class="tg">Hormat Saya 
                     <br>
@@ -278,7 +278,7 @@
 
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td class="tg" colspan="4">VII. PERTIMBANGAN ATASAN LANGSUNG **</td>
+                <td class="tg px-1" colspan="4">VII. PERTIMBANGAN ATASAN LANGSUNG **</td>
             </tr>
             <tr align="center">
                 <td class="tg" width="20%">DISETUJUI</td>
@@ -314,7 +314,7 @@
 
         <table cellspacing="0" cellspacing="0" class="p1 mb-2">
             <tr>
-                <td class="tg" colspan="4">VIII. KEPUTUSAN PEJABAT BERWENANG MEMBERIKAN CUTI</td>
+                <td class="tg px-1" colspan="4">VIII. KEPUTUSAN PEJABAT BERWENANG MEMBERIKAN CUTI</td>
             </tr>
             
             <tr align="center">

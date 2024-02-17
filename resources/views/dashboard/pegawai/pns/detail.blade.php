@@ -5,34 +5,92 @@
     <div class="row">
       @include('partials.bread')
     </div>
-    <div class="row">
-        <h4>Form Detail data Karyawan</h4>
-        <hr>
+    <div class="container text-center">
+      <h1 class="h4">DETAIL DATA PEGAWAI </h1>
+    </div>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">PARAMETER</th>
+          <th scope="col"></th>
+          <th scope="col">DATA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>KATEGORI</td>
+          <td>:</td>
+          <td>{{ $pegawai->kategori->nama }}</td>
+        </tr>
 
-        
-        <div class="row" align="left">
-          <div class="col-md-3 col">
+        <tr>
+          <th scope="row">2</th>
+          <td>NIP</td>
+          <td>:</td>
+          <td>{{ $pegawai->nip }}</td>
+        </tr>
 
-            
-            <p>NIP       : {{ $pegawai->nip }}</p>
-            <p>Nama      : {{ $pegawai->nama }}</p>
-            <p>Kategori  :   {{ $pegawai->kategori->nama }}</p>
-            <p>Bidang  :   {{ $pegawai->bidang->nama }}</p>
-            
-          </div>
-          <div class="col-md-3 col">
-            <p>Jenis Kelamin : {{ $pegawai->j_kelamin }}</p>
-            <p>Pendidikan : {{ $pegawai->pendidikan }}</p>
-            <p>Unit :   {{ $pegawai->unit->nama }}</p>
-          </div>
-          <div class="col-md-3 col">
-            
-            <p>Jabatan  :   {{ $pegawai->jabatan->nama }}</p>
-            <p>Golongan :   {{ $pegawai->golongan->nama }}</p>
-            <p>Fungsional  :   {{ $pegawai->fungsional->nama }}</p>
-          </div>
-      </div>
+        <tr>
+          <th scope="row">3</th>
+          <td>NAMA LENGKAP</td>
+          <td>:</td>
+          <td>{{ $pegawai->nama }}</td>
+        </tr>
 
+        <tr>
+          <th scope="row">4</th>
+          <td>JENIS KELAMIN</td>
+          <td>:</td>
+          <td>{{ $pegawai->j_kelamin }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">5</th>
+          <td>PENDIDIKAN</td>
+          <td>:</td>
+          <td>{{ $pegawai->pendidikan }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">6</th>
+          <td>BIDANG</td>
+          <td>:</td>
+          <td>{{ $pegawai->bidang->nama }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">7</th>
+          <td>UNIT</td>
+          <td>:</td>
+          <td>{{ $pegawai->unit->nama }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">8</th>
+          <td>JABATAN</td>
+          <td>:</td>
+          <td>{{ $pegawai->jabatan->nama }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">9</th>
+          <td>GOLONGAN</td>
+          <td>:</td>
+          <td>{{ $pegawai->golongan->nama }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">10</th>
+          <td>FUNGSIONAL</td>
+          <td>:</td>
+          <td>{{ $pegawai->fungsional->nama }}</td>
+        </tr>
+      
+      </tbody>
+    </table>
     </div>
 
     

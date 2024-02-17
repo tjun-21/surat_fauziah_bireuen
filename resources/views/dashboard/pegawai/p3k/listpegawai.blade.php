@@ -8,7 +8,7 @@
         @if ($pegawais->count())
 
             <div class="container mt-3">
-                <h3 class="mb-3">DATA KARYAWAN | P3K</h3>
+                <h3 class="mb-3 text-center">DATA KARYAWAN P3K</h3>
                 <div class="row">
                   @if(session()->has('success'))
 
@@ -17,10 +17,10 @@
                   </div>
               
                   @endif
-                  <a href="/p3k/create" class="btn btn-primary m-3 col-lg-2 "> Tambah Tenaga {{ $sub_title }}</a>
+                  <a href="/p3k/create" class="btn btn-primary m-3 col-lg-3 "> Tambah Tenaga {{ $sub_title }}</a>
 
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary m-3 col-lg-2  " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button type="button" class="btn btn-success m-3 col-lg-2 float-right " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Import Excel
                   </button>
 
@@ -56,12 +56,12 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Nomor Induk P3k</th>
-                        <th>Nama</th>
-                        <th>Jabatan</th>
-                        <th>Jenis</th>
-                        <th>Detail</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">NOMOR INDUK P3K</th>
+                        <th class="text-center">NAMA</th>
+                        <th class="text-center">JABATAN</th>
+                        <th class="text-center">BIDANG</th>
+                        <th class="text-center">AKSI</th>
                         {{-- <th>Surat Cuti</th> --}}
                       </tr>
                     </thead>
@@ -72,11 +72,11 @@
                         ?>
                       @foreach ($pegawais as $pegawai)
                       <tr>
-                        <td>{{ $no++ }}</td>
+                        <td class="text-center">{{ $no++ }}</td>
                         <td>{{ $pegawai->nik }}</td>
                         <td>{{ $pegawai->nama }}</td>
                         <td>{{ $pegawai->jabatan->nama ?? 'none'}}</td>
-                        <td>{{ $pegawai->kategori->nama }}</td>
+                        <td>{{ $pegawai->bidang->nama }}</td>
                         <td>
                           
                        

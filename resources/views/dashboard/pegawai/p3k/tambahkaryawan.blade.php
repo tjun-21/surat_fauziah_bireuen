@@ -30,12 +30,17 @@
     
   }
   .button1 {width: 100px;}
+
+  .center{
+    text-align: center;
+  }
+
   </style>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Tambah Pegawai  </h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-    </div> 
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom ">
+  <div class="container mt-0 mb-3 ">
+    <h3 class=" text-center  ">TAMBAH DATA KARYAWAN P3K</h3>
+  </div>
   </div>
 
   <div class="col-lg-13 " >

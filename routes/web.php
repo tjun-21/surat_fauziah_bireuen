@@ -77,6 +77,8 @@ Route::get('/karyawan/p3k/{pegawai:id}', [KaryawanController::class, 'detail']);
 //print cuti
 Route::get('/karyawan/print/{cuti:id}', [KaryawanController::class, 'print']);
 
+Route::get('/karyawan/printkontrak/{cuti:id}', [KaryawanController::class, 'printcutikontrak']);
+
 // print surat lain 
 
 // Route::get('/print', [KaryawanController::class, 'print']);

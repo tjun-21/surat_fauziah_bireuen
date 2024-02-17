@@ -45,7 +45,12 @@
                               @csrf
                               <button class="badge bg-danger" onclick="return confirm('apakah anda yakin ingin menghapus?')"><span data-feather="x-circle"></span></button>
                             </form>
+                            {{-- buat kondisi untuk mendeteksi pegawai  --}}
+                            @if( $pegawai->kategori->nama == 'PNS')
                             <a href="/karyawan/print/{{ $s->id }}" >Print</a>
+                            @else
+                            <a href="/karyawan/printkontrak/{{ $s->id }}" >Print</a>
+                            @endif
                         </td>
                     </tr>
                   @endforeach

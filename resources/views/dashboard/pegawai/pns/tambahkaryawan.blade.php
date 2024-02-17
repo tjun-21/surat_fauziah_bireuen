@@ -33,7 +33,9 @@
   </style>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">TAMBAH PEGAWAI PNS </h1>
+  <div class="container text-center">
+    <h1 class="h2">TAMBAH DATA PEGAWAI PNS  </h1>
+  </div>
     <div class="btn-toolbar mb-2 mb-md-0">
     </div> 
   </div>
@@ -144,10 +146,9 @@
         @endforeach
       </select>
   </div>
-
-  <button type="submit" class="btn btn-primary mt-4 ">Tambah Karyawan</button>
-
 </div>
+
+<div class="text-center"> <button type="submit" class="btn btn-primary mt-4 col-lg-7 ">Tambah Karyawan</button></div>
 
 
 </form>

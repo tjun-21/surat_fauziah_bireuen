@@ -69,12 +69,6 @@ class KaryawanController extends Controller
  
 
         ];
-
-
-    
-  
-
- 
         $pdf = Pdf::loadView('surat.template.cuti', $data)->setPaper('a4', 'potrait');
         return $pdf->download('surat.pdf');
 
@@ -93,4 +87,32 @@ class KaryawanController extends Controller
 
     //     ]);
     // }
+
+    public function printcutikontrak(Cuti $cuti)
+    {
+        $j=$cuti->pegawai->jabatan->id;
+        
+        $kepala = DB::table('pegawais')
+        ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
+        ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+        ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
+        ->where('pegawais.bidang_id', '=', $j)
+        ->where('jabatans.nama', '=', 'kepala')
+        ->get();
+        $data = [
+            'cuti' => $cuti,
+            'pegawais'=>$cuti->pegawai::all(),
+            'bidang'=>$cuti->pegawai->bidang,
+            'kabid'=> $kepala
+ 
+
+        ];
+        $pdf = Pdf::loadView('surat.template.cutikontrak', $data)->setPaper('a4', 'potrait');
+        return $pdf->download('surat.pdf');
+
+        // $mpdf = new \Mpdf\Mpdf();
+        // $data = $cuti;
+        // $mpdf->WriteHTML(view("surat.template.cuti"));
+        // $mpdf->Output();
+    }
 }

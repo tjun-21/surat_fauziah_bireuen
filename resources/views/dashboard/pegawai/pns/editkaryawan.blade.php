@@ -33,7 +33,9 @@
   </style>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Edit Data Pegawai  </h1>
+  <div class="container text-center">
+    <h1 class="h2">EDIT DATA PEGAWAI  </h1>
+  </div>
     <div class="btn-toolbar mb-2 mb-md-0">
     </div> 
   </div>
@@ -100,8 +102,10 @@
             <option value="P">Perempuan</option>
             </select>
         </div>
-        </div>
+       
+        </div>  
 </div>
+
   <div class="column">
 
     <div class="form-group">
@@ -156,10 +160,23 @@
       </select>
   </div>
 
-  <button type="submit" class="btn btn-primary mt-4 ">Edit Data</button>
-
+  <div class="form-group">
+    <label for="fungsional_id">Bidang</label>
+    <select class="form-select" name="bidang_id">
+      <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+      @foreach($bidangs as $bidang)
+      @if(old('bidang_id',$pegawai->bidang_id)== $bidang->id)
+      <option value="{{ $bidang->id }}" selected> {{ $bidang->nama }}</option>
+      @else
+        <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+      @endif
+    @endforeach
+      </select>
+  </div>
 </div>
+<div class="text-center"><button type="submit" class="btn btn-primary mt-4 col-lg-7 " >Edit Data</button></div>
 
+      
 
 </form>
 </div>

@@ -151,7 +151,8 @@ class CrudpnsController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
             ]);
     }
 
@@ -174,7 +175,8 @@ class CrudpnsController extends Controller
             
             'jabatan_id' => 'required',
             'fungsional_id' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'bidang_id'=>'required'
 
 
         ];
