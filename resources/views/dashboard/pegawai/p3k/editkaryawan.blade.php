@@ -43,6 +43,7 @@
   <div class="col-lg-13 " >
 
     <form method="post" action="{{ route('p3k.update',$pegawai->id) }}">
+      @method('put')
         @csrf
         <div class="column">
           <div class="form-group">
@@ -114,7 +115,9 @@
               </div>
               @enderror
           </div>
-          <button type="submit" class="btn btn-primary mt-4 ">Tambah Karyawan</button>
+          <div class="text-center">
+          <button type="submit" class="btn btn-primary mt-4 col-lg-7">EDIT DATA KARYAWAN</button>
+        </div>
         </div>
      <div class="column">
         <div class="form-group">
@@ -135,6 +138,20 @@
     <div class="form-group">
       <label for="tmt_masuk">TMT Masuk</label>
       <input type="date" name="tmt_masuk" id="tmt_masuk" class="form-control" value="{{ old('tmt_masuk',$pegawai->tmt_masuk) }}">
+    </div>
+
+    <div class="form-group">
+      <label for="fungsional_id">Bidang</label>
+      <select class="form-select" name="bidang_id">
+        <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+        @foreach($bidangs as $bidang)
+        @if(old('bidang_id',$pegawai->bidang_id)== $bidang->id)
+        <option value="{{ $bidang->id }}" selected> {{ $bidang->nama }}</option>
+        @else
+          <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+        @endif
+      @endforeach
+        </select>
     </div>
 
 

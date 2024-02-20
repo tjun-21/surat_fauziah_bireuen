@@ -63,6 +63,7 @@ Route::get('/cuti', [CutiController::class, 'index']);
 // Route::get('/cuti/karyawan/{kategori:slug}', [CutiController::class, 'karyawan']);
 Route::get('/surat/pns/{pegawai:id}', [SuratController::class, 'cuti']);
 Route::get('/surat/p3k/{pegawai:id}', [SuratController::class, 'cuti']);
+Route::get('/surat/kontrak/{pegawai:id}', [SuratController::class, 'cuti']);
 
 
 // Route::get('/surat/pns/{pegawai:nik}/cuti', [SuratController::class, 'cuti']);
@@ -71,7 +72,8 @@ Route::get('/surat/p3k/{pegawai:id}', [SuratController::class, 'cuti']);
 
 //buat detail data pegawai
 Route::get('/karyawan/pns/{pegawai:id}', [KaryawanController::class, 'detail']);
-Route::get('/karyawan/p3k/{pegawai:id}', [KaryawanController::class, 'detail']);
+Route::get('/karyawan/p3k/{pegawai:id}', [Crudp3kController::class, 'detail']);
+Route::get('/karyawan/kontrak/{pegawai:id}', [CrudkontrakController::class, 'detail']);
 
 
 //print cuti

@@ -52,7 +52,7 @@ class KaryawanController extends Controller
 
     public function print(Cuti $cuti)
     {
-        $j=$cuti->pegawai->jabatan->id;
+        $j=$cuti->pegawai->bidang->id;
         
         $kepala = DB::table('pegawais')
         ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
@@ -69,6 +69,7 @@ class KaryawanController extends Controller
  
 
         ];
+     
         $pdf = Pdf::loadView('surat.template.cuti', $data)->setPaper('a4', 'potrait');
         return $pdf->download('surat.pdf');
 
@@ -90,7 +91,7 @@ class KaryawanController extends Controller
 
     public function printcutikontrak(Cuti $cuti)
     {
-        $j=$cuti->pegawai->jabatan->id;
+        $j=$cuti->pegawai->bidang->id;
         
         $kepala = DB::table('pegawais')
         ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')

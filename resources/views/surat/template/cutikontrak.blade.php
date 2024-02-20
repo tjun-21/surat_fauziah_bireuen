@@ -338,11 +338,13 @@
                     <br>
 
                     @foreach ($pegawais as $pegawai)
-                    @if($pegawai->jabatan->nama == 'Direktur')
+                    @if($pegawai->jabatan && $pegawai->jabatan->nama == 'Direktur')
                         {{ $pegawai->nama }}<br> 
                         {{ $pegawai->nip }}<br> 
                     @endif
-                    @endforeach
+                @endforeach
+                
+                
                 </td>
              
             

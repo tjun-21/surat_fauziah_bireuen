@@ -131,16 +131,22 @@
           <input type="date" name="tmt" id="tmt" class="form-control" value="{{ old('tmt',$pegawai->tmt) }}">
       </div>
 
-      <button type="submit" class="btn btn-primary mt-4 ">Edit Data Karyawan</button>
+      <div class="form-group">
+        <label for="fungsional_id">Bidang</label>
+        <select class="form-select" name="bidang_id">
+          <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+          @foreach($bidangs as $bidang)
+          @if(old('bidang_id',$pegawai->bidang_id)== $bidang->id)
+          <option value="{{ $bidang->id }}" selected> {{ $bidang->nama }}</option>
+          @else
+            <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+          @endif
+        @endforeach
+          </select>
+      </div>
 </div>
-  <div class="column">
+<div class="text-center">  <button type="submit" class="btn btn-primary mt-4 col-lg-7">Edit Data Karyawan</button></div>
 
-  
-
- 
-</div>
-
-<div class="column">
 
 
 

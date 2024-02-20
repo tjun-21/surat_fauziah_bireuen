@@ -8,6 +8,7 @@ use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\Fungsional;
 use App\Models\Unit;
+use App\Models\Bidang;
 
 use App\Models\Cuti;
 use App\Models\Surat;
@@ -30,7 +31,8 @@ class CrudkontrakController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
             
        
             ]);
@@ -58,7 +60,9 @@ class CrudkontrakController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
+            
        
             ]); 
     }
@@ -81,14 +85,16 @@ class CrudkontrakController extends Controller
             
             'tgl_lahir' => 'required',
             'tmt' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'bidang_id' => 'required'
+
 
         ]);
 
         // $validatedData['id'] = auth()->user()->id; 
 
         pegawai :: create ($validatedData);
-        return redirect('/Kontrak/kontrak')->with('success','data berhasil ditambahkan');
+        return redirect('/KONTRAK/kontrak')->with('success','data berhasil ditambahkan');
     }
 
     /**
@@ -112,7 +118,8 @@ class CrudkontrakController extends Controller
             'golongan' => golongan::all(),
             'jabatan' => jabatan::all(),
             'fungsional' => fungsional::all(),
-            'unit' => unit::all()
+            'unit' => unit::all(),
+            'bidangs'=>bidang::all()
             
        
             ]);
@@ -137,7 +144,8 @@ class CrudkontrakController extends Controller
             
             'tgl_lahir' => 'required',
             'tmt' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'bidang_id' => 'required'
 
 
         ];
@@ -146,7 +154,7 @@ class CrudkontrakController extends Controller
         pegawai :: where ('id', $pegawai ->id)
                 ->update($validatedData);
 
-        return redirect('/Kontrak/kontrak')->with('success','data berhasil diedit');
+        return redirect('/KONTRAK/kontrak')->with('success','data berhasil diedit');
     }
 
     /**
@@ -156,7 +164,7 @@ class CrudkontrakController extends Controller
     {
         $pegawai = Pegawai::findOrfail($id);
         $pegawai->delete();
-        return redirect('/Kontrak/kontrak')->with('success','data berhasil dihapus');
+        return redirect('/KONTRAK/kontrak')->with('success','data berhasil dihapus');
     }
 
     public function detail(Pegawai $pegawai)
@@ -170,5 +178,33 @@ class CrudkontrakController extends Controller
 
 
         ]);
+    }
+
+    public function printcutikontrak(Cuti $cuti)
+    {
+        $j=$cuti->pegawai->jabatan->id;
+        
+        $kepala = DB::table('pegawais')
+        ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
+        ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+        ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
+        ->where('pegawais.bidang_id', '=', $j)
+        ->where('jabatans.nama', '=', 'kepala')
+        ->get();
+        $data = [
+            'cuti' => $cuti,
+            'pegawais'=>$cuti->pegawai::all(),
+            'bidang'=>$cuti->pegawai->bidang,
+            'kabid'=> $kepala
+ 
+
+        ];
+        $pdf = Pdf::loadView('surat.template.cutikontrak', $data)->setPaper('a4', 'potrait');
+        return $pdf->download('surat.pdf');
+
+        // $mpdf = new \Mpdf\Mpdf();
+        // $data = $cuti;
+        // $mpdf->WriteHTML(view("surat.template.cuti"));
+        // $mpdf->Output();
     }
 }

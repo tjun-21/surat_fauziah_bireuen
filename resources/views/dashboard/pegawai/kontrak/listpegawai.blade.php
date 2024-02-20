@@ -15,18 +15,24 @@
                   <div class="alert alert-success" role="alert">
                       {{ session('success') }}
                   </div>
+
               
                   @endif
                   <a href="/kontrak/create" class="btn btn-primary mb-3 col-lg-3 "> Tambah Tenaga {{ $sub_title }}</a>
+                  
+                  <button type="button" class="btn btn-success mb-3  col-lg-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Import Excel
+                  </button>
+                  
                   <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th>#</th>
                         <th>NIK</th>
-                        <th>Nama</th>
-                        <th>Unit Kerja</th>
-                        <th>Jenis</th>
-                        <th>Detail</th>
+                        <th>NAMA</th>
+                        <th>BIDANG</th>
+                        <th>RUANGAN</th>
+                        <th>AKSI</th>
                         {{-- <th>Surat Cuti</th> --}}
                       </tr>
                     </thead>
@@ -40,8 +46,8 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $pegawai->nik }}</td>
                         <td>{{ $pegawai->nama }}</td>
-                        <td>{{ $pegawai->unit->nama ?? 'none'}}</td>
-                        <td>{{ $pegawai->kategori->nama }}</td>
+                        <td>{{ $pegawai->bidang->nama ?? 'none'}}</td>
+                        <td>{{ $pegawai->unit->nama }}</td>
                         <td>
                           
                        
@@ -55,8 +61,8 @@
                           </form>
                           
                           {{-- <a href="/detailkontrak/{{ $pegawai->id }}" class="badge btn-primary" ><span data-feather="info"></span> </a>  --}}
-                          <a href="/karyawan/kontarak/{{ $pegawai->nik }}" class="badge btn-success" ><span data-feather="file-text"></span> </a> 
-                    
+                          <a href="/karyawan/kontrak/{{ $pegawai->id }}" class="badge btn-success" ><span data-feather="file-text"></span> </a> 
+
 
                     
                         </td>

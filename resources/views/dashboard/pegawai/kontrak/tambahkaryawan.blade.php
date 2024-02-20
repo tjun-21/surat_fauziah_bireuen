@@ -32,10 +32,10 @@
   .button1 {width: 100px;}
   </style>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Tambah Pegawai  </h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-    </div> 
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom text-center">
+  <div class="container text-center">
+    <h1 class="h2">TAMBAH DATA PEGAWAI PNS  </h1>
+  </div>
   </div>
 
   <div class="col-lg-13 " >
@@ -125,16 +125,18 @@
           <input type="date" name="tmt" id="tmt" class="form-control">
       </div>
 
-      <button type="submit" class="btn btn-primary mt-4 ">Tambah Karyawan</button>
+      <div class="form-group">
+        <label for="fungsional_id">Bidang</label>
+        <select class="form-select" name="bidang_id">
+          <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+            @foreach($bidangs as $bidang)
+                <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+            @endforeach
+          </select>
+      </div>
 </div>
-  <div class="column">
+<div class="text-center"><button type="submit" class="btn btn-primary mt-4 col-lg-7">Tambah Karyawan</button></div>
 
-  
-
- 
-</div>
-
-<div class="column">
 
 
 

@@ -117,7 +117,9 @@
               </div>
               @enderror
           </div>
-          <button type="submit" class="btn btn-primary mt-4 ">Tambah Karyawan</button>
+          <div class="text-center">
+          <button type="submit" class="btn btn-primary mt-4 col-lg-7">Tambah Karyawan</button>
+        </div>
         </div>
      <div class="column">
         <div class="form-group">
@@ -139,10 +141,21 @@
       <label for="tmt_masuk">TMT Masuk</label>
       <input type="date" name="tmt_masuk" id="tmt_masuk" class="form-control">
     </div>
+    <div class="form-group">
+      <label for="fungsional_id">Bidang</label>
+      <select class="form-select" name="bidang_id">
+        <option value="" disabled selected>-- Pilih Bidang Karyawan --</option>
+          @foreach($bidangs as $bidang)
+              <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>
+          @endforeach
+        </select>
+    </div>
 
 
   
   <div class="column">
+
+    
 
     <div class="form-group">
       <label for="j_kelamin">jenis kelamin</label>
@@ -173,6 +186,8 @@
         @endforeach
       </select>
   </div>
+
+
   
 </div>
 
