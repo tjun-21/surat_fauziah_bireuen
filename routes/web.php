@@ -13,6 +13,7 @@ use App\Http\Controllers\CrudkontrakController;
 use App\Http\Controllers\Crudp3kController;
 
 use App\Http\Controllers\CutipnsController;
+use App\Http\Controllers\RekomendasiController;
 
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\BidangController;
@@ -65,6 +66,11 @@ Route::get('/surat/pns/{pegawai:id}', [SuratController::class, 'cuti']);
 Route::get('/surat/p3k/{pegawai:id}', [SuratController::class, 'cuti']);
 Route::get('/surat/kontrak/{pegawai:id}', [SuratController::class, 'cuti']);
 
+//route form surat rekomendasi
+Route::get('/formrekom/pns/{pegawai:id}', [SuratController::class, 'rekom']);
+Route::get('/lihatsurat/surat/{rekomendasi:id}', [SuratController::class, 'lihat']);
+Route::get('/karyawan/printrekomendasi/{rekomendasi:id}', [KaryawanController::class, 'printrekomendasi']);
+
 
 // Route::get('/surat/pns/{pegawai:nik}/cuti', [SuratController::class, 'cuti']);
 // Route::get('/surat/pns/{pegawai:nik}/rekomendasi', [SuratController::class, 'rekom']);
@@ -111,6 +117,12 @@ Route::resource('/p3k', Crudp3kController::class);
 
 //crud cuti 
 Route::resource('/cuti', CutipnsController::class);
+
+//crud surat rekomendasi 
+Route::resource('/rekom', RekomendasiController::class);
+
+
+
 
 //import excel
 Route::post('/pns/import_excel', [CrudpnsController::class, 'import_excel']);

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('rekomendasis', function (Blueprint $table) {
             $table->id();
+            $table->string('alamatrekom');
+            $table->foreignId('pegawai_id');
             $table->timestamps();
         });
     }

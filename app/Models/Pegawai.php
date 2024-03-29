@@ -7,6 +7,7 @@ use App\Models\Jabatan;
 use App\Models\Golongan;
 use App\Models\Kategori;
 use App\Models\Cuti;
+use App\Models\Rekomendasi;
 use App\Models\Bidang;
 use App\Models\Fungsional;
 use Illuminate\Database\Eloquent\Model;
@@ -49,5 +50,10 @@ class Pegawai extends Model
     public function surat()
     {
         return $this->hasMany(Surat::class);
+    }
+
+    public function rekomendasi()
+    {
+        return $this->hasMany(Rekomendasi::class);
     }
 }

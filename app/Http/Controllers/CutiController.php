@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuti;
+
 use App\Http\Requests\StoreCutiRequest;
 use App\Http\Requests\UpdateCutiRequest;
 use App\Models\Kategori;
@@ -30,6 +31,7 @@ class CutiController extends Controller
             "title" => 'Form Cuti',
             "sub_title" => $kategori->nama,
             "pegawai" => $kategori->pegawai,
+            "pegawais" => $kategori->pegawai::all(),
             "j_cuti" => JCuti::all(),
             // "jabatan" => Jabatan :: all(),
             'active' => "surat_cuti"

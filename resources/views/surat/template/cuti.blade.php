@@ -18,6 +18,7 @@
         .tg{
             border: 1px solid black;
         } 
+        
         /* table {
             border-collapse: collapse;
         }

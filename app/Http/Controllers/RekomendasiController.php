@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreRekomendasiRequest;
 use App\Http\Requests\UpdateRekomendasiRequest;
 use App\Models\Rekomendasi;
+use App\Models\Cuti;
 
 class RekomendasiController extends Controller
 {
@@ -13,7 +15,14 @@ class RekomendasiController extends Controller
      */
     public function index()
     {
-        //
+        return view('surat.template.rekomendasi',[
+       
+            "title" => 'List Surat Cuti',
+            "cuti" => Cuti::all(),
+           
+            // "jabatan" => Jabatan :: all(),
+            'active' => "list-surat"
+        ]);
     }
 
     /**
@@ -27,9 +36,19 @@ class RekomendasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRekomendasiRequest $request)
+    public function store(Request $request)
     {
-        //
+  
+        $validatedData = $request->validate([
+           
+            'pegawai_id' => 'required|max:255',
+            'alamatrekom' => 'required'
+        ]);
+
+        // $validatedData['id'] = auth()->user()->id; 
+
+        rekomendasi :: create ($validatedData);
+        return redirect()->back()->with('success','data cuti berhasil ditambahkan');
     }
 
     /**

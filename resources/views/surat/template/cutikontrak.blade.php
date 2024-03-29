@@ -69,7 +69,7 @@
             <tr>
                 <td class="tg px-1">Ruangan</td>
                 <td class="tg px-1">{{ $cuti->pegawai->unit->nama }}</td>
-                <td>TMT Kontrak</td>
+                <td class="tg px-1">TMT Kontrak</td>
                 <td class="tg px-1">{{ $cuti->pegawai->tmt }}</td>
             </tr>
             <tr>

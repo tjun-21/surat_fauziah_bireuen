@@ -65,7 +65,7 @@
             
           </table>
     </div>
-    <div class="row mt-5">
+    {{-- <div class="row mt-5">
         <h5>Tabel History Pembuatan Surat Lainnya</h5>
         <hr>
         <table class="table table-bordered">
@@ -75,7 +75,7 @@
                 <th>Jenis Surat</th>
                 <th>Tanggal Pembuatan</th>
                 <th>Aksi</th>
-                {{-- <th>Surat Cuti</th> --}}
+                <th>Surat Cuti</th>
               </tr>
             </thead>
             <tbody>
@@ -104,5 +104,5 @@
             </tbody>
             
           </table>
-      </div>
+      </div> --}}
 </div>

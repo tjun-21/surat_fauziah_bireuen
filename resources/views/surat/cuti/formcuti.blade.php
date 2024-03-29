@@ -66,7 +66,7 @@
                             </div>
     
                            
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="alasancuti">Alasan Cuti</label>
                                 <label for="alasan" class="form-label">Alasan Melaksanakan Cuti</label>
                                 <input type="text" name="alasan" class="form-control">
@@ -83,22 +83,41 @@
                                   @endforeach
                                 </select>
                             </div>
-                         
-                            {{-- <div class="mb-3">
-                                <label for="no" class="form-label">No Hp</label>
-                                <input type="number" name="no" class="form-control">
-                            </div> --}}
                             
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Tanggal Mulai</label>
                                 <input type="date" name="tgl_mulai" class="form-control">
                             </div>
     
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="nama" class="form-label">Tanggal Akhir</label>
                                 <input type="date" name="tgl_akhir" class="form-control">
                             </div>
                             </div>
+
+                            <div class="mb-3 mt-0">
+                              <label for="jeniscuti" class="form-label">Pilih Penanda Tangan</label>
+                              <select class="form-select" name="jcuti_id">
+                                  <option> -- Pilih Jabatan Penanda Tangan --</option>
+                                @foreach($pegawais as $j)
+                                    <option value="{{ $j->nama }}"> {{ $j->nama }}</option>
+                                @endforeach
+                              </select>
+                          </div>
+
+                          <div class="mb-3 mt-2">
+                            <label for="jeniscuti" class="form-label">Pilih Penanda Tangan 2</label>
+                            <select class="form-select" name="jcuti_id">
+                                <option> -- Pilih Jabatan Penanda Tangan --</option>
+                              @foreach($pegawais as $j)
+                         
+                                  <option value="{{ $j->nama }}"> {{ $j->nama }}</option>
+                 
+                              @endforeach
+                            </select>
+                        </div>
+
+
                             <div class="text-center "> <button type="submit" class="btn btn-primary  col-lg-7 ">Buat Surat Cuti</button></div>
                       
                             
