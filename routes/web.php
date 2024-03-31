@@ -80,6 +80,8 @@ Route::get('/karyawan/printrekomendasi/{rekomendasi:id}', [KaryawanController::c
 Route::get('/karyawan/pns/{pegawai:id}', [KaryawanController::class, 'detail']);
 Route::get('/karyawan/p3k/{pegawai:id}', [Crudp3kController::class, 'detail']);
 Route::get('/karyawan/kontrak/{pegawai:id}', [CrudkontrakController::class, 'detail']);
+// aktivasi cuti 
+Route::get('/karyawan/pns/status_cuti/{pegawai:id}', [KaryawanController::class, 'aktivasiCuti']);
 
 
 //print cuti
@@ -130,7 +132,7 @@ Route::post('/pns/import_excel', [CrudpnsController::class, 'import_excel']);
 
 //crud data master
 Route::resource('/jabatan', JabatanController::class);
-Route::resource('/bidang',BidangController::class);
+Route::resource('/bidang', BidangController::class);
 Route::resource('/golongan', GolonganController::class);
 Route::resource('/fungsional', FungsionalController::class);
 Route::resource('/unit', UnitController::class);

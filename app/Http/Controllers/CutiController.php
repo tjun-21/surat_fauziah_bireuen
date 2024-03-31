@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuti;
-
 use App\Http\Requests\StoreCutiRequest;
 use App\Http\Requests\UpdateCutiRequest;
 use App\Models\Kategori;
@@ -31,7 +30,6 @@ class CutiController extends Controller
             "title" => 'Form Cuti',
             "sub_title" => $kategori->nama,
             "pegawai" => $kategori->pegawai,
-            "pegawais" => $kategori->pegawai::all(),
             "j_cuti" => JCuti::all(),
             // "jabatan" => Jabatan :: all(),
             'active' => "surat_cuti"
@@ -53,7 +51,7 @@ class CutiController extends Controller
     {
 
         $validatedData = $request->validate([
-           
+
             'pegawai_id' => 'required|max:255',
             'jcuti_id'    => 'required',
             'alasan' => 'required',
@@ -61,15 +59,15 @@ class CutiController extends Controller
             'alamat_cuti' => 'required',
             'alasan' => 'required',
             'tgl_akhir' => 'required'
-          
+
 
 
         ]);
 
         // $validatedData['id'] = auth()->user()->id; 
 
-        jabatan :: create ($validatedData);
-        return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success','data berhasil ditambahkan');
+        jabatan::create($validatedData);
+        return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success', 'data berhasil ditambahkan');
     }
 
     /**

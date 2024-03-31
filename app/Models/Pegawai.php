@@ -10,6 +10,8 @@ use App\Models\Cuti;
 use App\Models\Rekomendasi;
 use App\Models\Bidang;
 use App\Models\Fungsional;
+use App\Models\CutiSetting;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -55,5 +57,9 @@ class Pegawai extends Model
     public function rekomendasi()
     {
         return $this->hasMany(Rekomendasi::class);
+    }
+    public function cutiSetting()
+    {
+        return $this->hasOne(CutiSetting::class);
     }
 }

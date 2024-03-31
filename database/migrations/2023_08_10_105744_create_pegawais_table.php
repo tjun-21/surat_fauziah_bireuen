@@ -33,6 +33,7 @@ class CreatePegawaisTable extends Migration
             $table->foreignId('bidang_id');
             $table->foreignId('fungsional_id');
             $table->foreignId('unit_id');
+            $table->integer('hak_cuti')->default('0');
             $table->timestamps();
         });
     }

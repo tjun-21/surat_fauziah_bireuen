@@ -9,6 +9,7 @@ use App\Models\Pegawai;
 use App\Models\Jabatan;
 use App\Models\Kategori;
 use App\Models\Rekomendasi;
+use App\Models\CutiSetting;
 use App\Models\Surat;
 use App\Models\Bidang;
 use Carbon\Carbon;
@@ -52,26 +53,39 @@ class KaryawanController extends Controller
         ]);
     }
 
+    public function aktivasiCuti(Pegawai $pegawai)
+    {
+        $pegawai->hak_cuti = '1';
+        $pegawai->save();
+
+        $cutiSetting = new CutiSetting();
+        $cutiSetting->nik = $pegawai->nik;
+        $cutiSetting->kuota_cuti_tahunan = 12;
+
+        $cutiSetting->save();
+        return redirect()->back()->with('cuti_success', 'Status cuti berhasil diaktifkan');
+    }
+
     public function print(Cuti $cuti)
     {
-        $j=$cuti->pegawai->bidang->id;
-        
+        $j = $cuti->pegawai->bidang->id;
+
         $kepala = DB::table('pegawais')
-        ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
-        ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
-        ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
-        ->where('pegawais.bidang_id', '=', $j)
-        ->where('jabatans.nama', '=', 'kepala')
-        ->get();
+            ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
+            ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+            ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
+            ->where('pegawais.bidang_id', '=', $j)
+            ->where('jabatans.nama', '=', 'kepala')
+            ->get();
         $data = [
             'cuti' => $cuti,
-            'pegawais'=>$cuti->pegawai::all(),
-            'bidang'=>$cuti->pegawai->bidang,
-            'kabid'=> $kepala
- 
+            'pegawais' => $cuti->pegawai::all(),
+            'bidang' => $cuti->pegawai->bidang,
+            'kabid' => $kepala
+
 
         ];
-     
+
         $pdf = Pdf::loadView('surat.template.cuti', $data)->setPaper('a4', 'potrait');
         return $pdf->download('surat.pdf');
 
@@ -91,27 +105,27 @@ class KaryawanController extends Controller
     //     ]);
     // }
 
-    
+
 
     public function printcutikontrak(Cuti $cuti)
     {
 
-        
-        $j=$cuti->pegawai->bidang->id;
-        
+
+        $j = $cuti->pegawai->bidang->id;
+
         $kepala = DB::table('pegawais')
-        ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
-        ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
-        ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
-        ->where('pegawais.bidang_id', '=', $j)
-        ->where('jabatans.nama', '=', 'kepala')
-        ->get();
+            ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
+            ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
+            ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
+            ->where('pegawais.bidang_id', '=', $j)
+            ->where('jabatans.nama', '=', 'kepala')
+            ->get();
         $data = [
             'cuti' => $cuti,
-            'pegawais'=>$cuti->pegawai::all(),
-            'bidang'=>$cuti->pegawai->bidang,
-            'kabid'=> $kepala
- 
+            'pegawais' => $cuti->pegawai::all(),
+            'bidang' => $cuti->pegawai->bidang,
+            'kabid' => $kepala
+
 
         ];
         $pdf = Pdf::loadView('surat.template.cutikontrak', $data)->setPaper('a4', 'potrait');
@@ -126,7 +140,7 @@ class KaryawanController extends Controller
     public function printrekomendasi(Rekomendasi $rekomendasi)
     {
         $j = $rekomendasi->pegawai->bidang->id;
-    
+
         $kepala = DB::table('pegawais')
             ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
             ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
@@ -134,9 +148,9 @@ class KaryawanController extends Controller
             ->where('pegawais.bidang_id', '=', $j)
             ->where('jabatans.nama', '=', 'kepala')
             ->get();
-    
+
         $currentDate = Carbon::now(); // Mengambil tanggal hari ini
-    
+
         $data = [
             'rekom' => $rekomendasi,
             'pegawai' => $rekomendasi->pegawai::all(),
@@ -146,9 +160,8 @@ class KaryawanController extends Controller
         ];
 
 
-    
+
         $pdf = Pdf::loadView('surat.template.rekomendasi', $data)->setPaper('a4', 'potrait');
         return $pdf->stream('suratrekomedasi.pdf');
     }
-    
 }
