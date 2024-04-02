@@ -71,6 +71,26 @@
   </div>
 </div>
 
+@elseif($pegawai->cutiSetting->cuti_diambil >= 12)
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <div class="card">
+        <div class="container mt-3">
+          <h3 class="mb-3 text-center"> Sudah Mencapai Batas pengambilan cuti</h3>
+          <!-- <div class="text-center "> <button type="submit" class="btn btn-primary  col-lg-7 ">Buat Surat Cuti</button></div> -->
+          <div class="text-center">
+            <!-- <a class="btn btn-primary text-white col-lg-12 mb-2" href="/karyawan/{{ $pegawai->kategori->slug }}/status_cuti/{{ $pegawai->id }}">Aktivasi Cuti</a> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@include('partials.cuti_history')
+
 @else
 <div class="container">
   <div class="row">
@@ -131,21 +151,21 @@
 
               <div class="mb-3 mt-0">
                 <label for="jeniscuti" class="form-label">Pilih Penanda Tangan</label>
-                <select class="form-select" name="jcuti_id">
+                <select class="form-select" name="pt_1">
                   <option> -- Pilih Jabatan Penanda Tangan --</option>
                   @foreach($pegawais as $j)
-                  <option value="{{ $j->nama }}"> {{ $j->nama }}</option>
+                  <option value="{{ $j->nip }}"> {{ $j->nama }}</option>
                   @endforeach
                 </select>
               </div>
 
               <div class="mb-3 mt-2">
                 <label for="jeniscuti" class="form-label">Pilih Penanda Tangan 2</label>
-                <select class="form-select" name="jcuti_id">
+                <select class="form-select" name="pt_2">
                   <option> -- Pilih Jabatan Penanda Tangan --</option>
                   @foreach($pegawais as $j)
 
-                  <option value="{{ $j->nama }}"> {{ $j->nama }}</option>
+                  <option value="{{ $j->nip }}"> {{ $j->nama }}</option>
 
                   @endforeach
                 </select>
@@ -164,8 +184,9 @@
       </div>
     </div>
   </div>
+  @include('partials.cuti_history')
   @endif
 
 
-  @include('partials.cuti_history')
+
   @endsection

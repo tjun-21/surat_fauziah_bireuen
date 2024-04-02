@@ -12,6 +12,10 @@ use App\Models\Rekomendasi;
 use App\Models\CutiSetting;
 use App\Models\Surat;
 use App\Models\Bidang;
+
+// load services 
+use App\Services\HitungCutiTahunanService;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -20,6 +24,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class KaryawanController extends Controller
 {
+    public $hitungCutiTahunanService;
+    public function __construct()
+    {
+        $this->hitungCutiTahunanService = new HitungCutiTahunanService;
+    }
+
     public function kategori(Kategori $kategori)
     {
         return view('dashboard.pegawai.listpegawai', [
@@ -42,13 +52,15 @@ class KaryawanController extends Controller
 
     public function detail(Pegawai $pegawai)
     {
+        $paramater = $pegawai['id'];
+        $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);
         return view('dashboard.pegawai.pns.detail', [
             "active" => "karyawan",
             'title' => "data pegawai",
             "pegawai" => $pegawai,
             "surat" => $pegawai->surat,
-            "cuti" => $pegawai->cuti
-
+            "cuti" => $pegawai->cuti,
+            "jumlah_cuti" => $jumlahCuti
 
         ]);
     }
@@ -59,7 +71,7 @@ class KaryawanController extends Controller
         $pegawai->save();
 
         $cutiSetting = new CutiSetting();
-        $cutiSetting->nik = $pegawai->nik;
+        $cutiSetting->pegawai_id = $pegawai->id;
         $cutiSetting->kuota_cuti_tahunan = 12;
 
         $cutiSetting->save();

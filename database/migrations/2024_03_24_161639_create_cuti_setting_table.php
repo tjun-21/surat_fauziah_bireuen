@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cuti_settings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('pegawai_id')->unique();
             $table->integer('kuota_cuti_tahunan');
             $table->integer('cutiN_1')->default(0);
             $table->integer('cutiN_2')->default(0);

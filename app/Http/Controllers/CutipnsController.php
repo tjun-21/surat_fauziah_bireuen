@@ -15,13 +15,15 @@ class CutipnsController extends Controller
      */
     public function index()
     {
-        return view('surat.cuti.cuti',[
-            "title" => 'List Surat Cuti',
-            'active' => 'datamaster',
-            "jabatan" => cuti::all(),
-            "cuti" => Cuti::all()
+        return view(
+            'surat.cuti.cuti',
+            [
+                "title" => 'List Surat Cuti',
+                'active' => 'datamaster',
+                "jabatan" => cuti::all(),
+                "cuti" => Cuti::all()
             ]
-    );
+        );
     }
 
     /**
@@ -29,14 +31,14 @@ class CutipnsController extends Controller
      */
     public function create()
     {
-        return view('surat.cuti.cuti',[
+        return view('surat.cuti.cuti', [
             'active' => 'surat',
             'categories' => kategori::all(),
             'pegawai' => pegawai::all(),
             'jcutis' => jcuti::all()
-           
-       
-            ]);
+
+
+        ]);
     }
 
     /**
@@ -44,24 +46,43 @@ class CutipnsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);        
+        $data = $request->all();
         $validatedData = $request->validate([
-           
+
             'pegawai_id' => 'required|max:255',
-            'jcuti_id' => 'required|max:255',
-            'tgl_mulai' => 'required|max:255',
-            'tgl_akhir' => 'required|max:255',
-            'alasan' => 'required|max:255',
-            'alamat_cuti' => 'required|max:255'
-            
+            'jcuti_id'    => 'required',
+            'alasan' => 'required',
+            'tgl_mulai' => 'required',
+            'alamat_cuti' => 'required',
+            'pt_1' => 'required',
+            'pt_2' => 'required',
+            'alasan' => 'required',
+            'tgl_akhir' => 'required',
 
         ]);
+        $tgl_mulai = strtotime($data['tgl_mulai']);
+        $tgl_akhir = strtotime($data['tgl_akhir']);
 
-        // $validatedData['id'] = auth()->user()->id; 
+        $selisih_detik = $tgl_akhir - $tgl_mulai;
+        $jumlah_hari = intval($selisih_detik / (60 * 60 * 24)) + 1;
+        // dd($jumlah_hari);
+        $data_save = [
+            'pegawai_id' => $data['pegawai_id'],
+            'jcuti_id' => $data['jcuti_id'],
+            'alasan' => $data['alasan'],
+            'tgl_mulai' => $data['tgl_mulai'],
+            'alamat_cuti' => $data['alamat_cuti'],
+            'pt_1' => $data['pt_1'],
+            'pt_2' => $data['pt_2'],
+            'alasan' => $data['alasan'],
+            'tgl_akhir' => $data['tgl_akhir'],
+            'j_hari' => $jumlah_hari
 
-        cuti :: create ($validatedData);
-        
-        return redirect()->back()->with('success','data cuti berhasil ditambahkan');
+        ];
+
+        Cuti::create($data_save);
+
+        return redirect()->back()->with('success', 'data cuti berhasil ditambahkan');
     }
 
     /**
@@ -94,6 +115,6 @@ class CutipnsController extends Controller
     public function destroy(Cuti $cuti)
     {
         $golongan->delete();
-        return redirect('/golongan')->with('success','data berhasil dihapus');
+        return redirect('/golongan')->with('success', 'data berhasil dihapus');
     }
 }

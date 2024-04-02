@@ -97,8 +97,21 @@
       ?>
         <td>Belum DIberikan</td>
       <?php } else { ?>
-        <td>SUdah DIberikan</td>
+        <td>Sudah DIberikan</td>
       <?php } ?>
+    </tr>
+    <tr>
+      <th scope="row">12</th>
+      <td>Cuti Tahunan Diambil</td>
+      <td>:</td>
+      <td>{{ isset($jumlah_cuti) ? $jumlah_cuti : '-' }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">13</th>
+      <td>Sisa Cuti</td>
+      <td>:</td>
+      <td>{{ isset($pegawai->cutiSetting->kuota_cuti_tahunan) ? $pegawai->cutiSetting->kuota_cuti_tahunan - $jumlah_cuti : '-' }}</td>
     </tr>
 
   </tbody>
