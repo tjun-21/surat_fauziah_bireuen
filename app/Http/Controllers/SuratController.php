@@ -67,6 +67,13 @@ class SuratController extends Controller
         ]);
     }
 
+    public function cutisetting($id)
+    {
+        $data = CutiSetting::findOrFail($id); // Mengambil data dari database
+
+        return view('modal', compact('data')); // Melewatkan data ke view
+    }
+
 
     // public function cuti( Pegawai $pegawai)
     // {

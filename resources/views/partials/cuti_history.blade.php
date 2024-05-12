@@ -1,6 +1,66 @@
 <div class="row">
-    <div class="row mt-5">
-        <h5>Tabel History Pengambilan Cuti</h5>
+    <div class="row mt-3" >
+       
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-auto">
+              <h5>Tabel History Pengambilan Cuti </h5>
+            </div>
+            <div class="col text-end">
+     
+              <button type="button" class="btn btn-warning col-lg-3" data-bs-toggle="modal" data-bs-target="#modalcuti" data-bs-whatever="@mdo">Edit Cuti Tahunan</button>
+     
+
+            </div>
+        </div>
+    </div>
+      <div class="container">
+        <div class="">
+        
+            <div class="col-auto">
+            
+            </div>
+        </div>
+    </div>
+  
+  @foreach ($pegawai as $data)
+      
+
+<div class="modal fade" id="modalcuti" tabindex="-1" aria-labelledby="modalcutiLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalcutiLabel">DATA JUMLAH CUTI</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('cutisetting.update',$pegawai->id) }}" method="post">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Jumlah Cuti Tahun Ini</label>
+            <input type="text" class="form-control" id="kuota_cuti_tahunan" value="{{ $pegawai->CutiSetting->cuti_diambil }}">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Jumlah Cuti 1 tahun Sebelumnya </label>
+            <input type="text" class="form-control" id="cutiN_1" value="{{ $pegawai->CutiSetting->cutiN_1 }}">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Jumlah Cuti 2 tahun Sebelumnya</label>
+            <input type="text" class="form-control" id="cutiN_2" value="{{ $pegawai->CutiSetting->cutiN_2 }}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary">Ubah</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+       
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+@endforeach 
         <hr>
         <table class="table table-bordered">
             <thead>
@@ -106,3 +166,15 @@
           </table>
       </div> --}}
 </div>
+
+{{-- <script>
+  // Melewatkan data ke dalam modal saat modal ditampilkan
+  $('modalcuti').on('cutisetting.bs.modal', function (event) {
+    var modal = $(this);
+    var cutiData = @json($data); 
+    modal.find('.modal-body #kuota_cuti_tahunan').text('{{ $data->kuota_cuti_tahunan }}');
+    modal.find('.modal-body #cutiN_1').text('{{ $data->cutiN_1 }}');
+    modal.find('.modal-body #cutiN_2').text('{{ $data->cutiN_2 }}');
+    // Anda dapat menambahkan lebih banyak data di sini sesuai kebutuhan
+  });
+</script> --}}

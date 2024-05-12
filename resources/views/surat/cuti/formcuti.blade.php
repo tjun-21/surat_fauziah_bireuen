@@ -98,7 +98,8 @@
 
       <div class="card">
         <div class="container mt-3">
-          <h3 class="mb-3 text-center"> Isi Data {{ $title }} Berikut Untuk Membuat Surat {{ $sub_title }} </h3>
+          <h3 class="mb-3 text-center"> Isi Data {{ $title }} Berikut Untuk Membuat Surat {{ $sub_title }} </h3><br>
+          <div class="bg-danger text-white col-lg-4 text-center">SISA KUOTA CUTI TAHUNAN ANDA : {{ $pegawai->cutiSetting->cuti_diambil + $pegawai->cutiSetting->cutiN_1 + $pegawai->cutiSetting->cutiN_2}}  HARI</div>
           <div class="row">
             <form method="POST" action="{{ route('cuti.store') }}" class="mb-4">
               @csrf
@@ -154,7 +155,9 @@
                 <select class="form-select" name="pt_1">
                   <option> -- Pilih Jabatan Penanda Tangan --</option>
                   @foreach($pegawais as $j)
-                  <option value="{{ $j->nip }}"> {{ $j->nama }}</option>
+                  @if(in_array($j->jabatan->nama, ['Direktur RSUD dr.Fauziah Bireuen', 'WADIR PELAYANAN','BUPATI']))
+                  <option value="{{ $j->nip }}"> {{ $j->nama }} ({{ $j->jabatan->nama }})</option>
+                  @endif
                   @endforeach
                 </select>
               </div>
@@ -164,9 +167,9 @@
                 <select class="form-select" name="pt_2">
                   <option> -- Pilih Jabatan Penanda Tangan --</option>
                   @foreach($pegawais as $j)
-
-                  <option value="{{ $j->nip }}"> {{ $j->nama }}</option>
-
+                  @if(in_array($j->jabatan->nama, ['Direktur RSUD dr.Fauziah Bireuen', 'WADIR PELAYANAN','BUPATI']))
+                  <option value="{{ $j->nip }}"> {{ $j->nama }} ({{ $j->jabatan->nama }})</option>
+                  @endif
                   @endforeach
                 </select>
               </div>

@@ -22,6 +22,7 @@ use App\Http\Controllers\FungsionalController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\CutisettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,8 @@ Route::resource('/fungsional', FungsionalController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/kategori', KategoriController::class);
 
+//edit cuti seting
+Route::match(['get','post'], 'edit/{pegawai:id}',[CutisettingController::class, 'editcutisetting']);
 
 
 
