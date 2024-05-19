@@ -67,8 +67,8 @@ class CutiController extends Controller
         dd($validatedData);
         // $validatedData['id'] = auth()->user()->id; 
 
-        // Cuti::create($validatedData);
-        // return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success', 'data cuti berhasil ditambahkan');
+        Cuti::create($validatedData);
+        return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success', 'data cuti berhasil ditambahkan');
     }
 
     /**
