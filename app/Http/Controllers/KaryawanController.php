@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Collection;
 
 use App\Models\Cuti;
 use App\Models\Pegawai;
@@ -15,6 +16,7 @@ use App\Models\Bidang;
 
 // load services 
 use App\Services\HitungCutiTahunanService;
+use App\Services\SettingDataCutiService;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -24,10 +26,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class KaryawanController extends Controller
 {
-    public $hitungCutiTahunanService;
+    public $hitungCutiTahunanService, $settingDataCutiService;
     public function __construct()
     {
         $this->hitungCutiTahunanService = new HitungCutiTahunanService;
+        $this->settingDataCutiService = new SettingDataCutiService;
     }
 
     public function kategori(Kategori $kategori)
@@ -65,6 +68,40 @@ class KaryawanController extends Controller
         ]);
     }
 
+    public function setting_cuti(Pegawai $pegawai)
+    {
+        // echo "Setting Cuti Karyawan Page";
+        $paramater = $pegawai['id'];
+        $dataSetting = $this->settingDataCutiService->getData($paramater);
+        // dd($dataSetting);
+        return view('dashboard.pegawai.pns.cuti_setting', [
+            "active" => "karyawan",
+            'title' => "Setting Data Cuti Pegawai",
+            "pegawai" => $pegawai,
+            "surat" => $pegawai->surat,
+            "cuti" => $pegawai->cuti,
+            "data" => $dataSetting,
+            "params" => $paramater
+
+        ]);
+    }
+
+    public function updateSettingCuti(Request $request, int $id)
+    {
+
+        $request->validate([
+            'kuota_cuti_tahunan' => 'required|numeric',
+            'cutiN_1' => 'required|numeric',
+            'cutiN_2' => 'required|numeric',
+            'kuota_cuti' => 'required|numeric',
+        ]);
+
+        // Langsung melakukan update data berdasarkan $request
+        CutiSetting::where('id', $id)->update($request->only('kuota_cuti_tahunan', 'cutiN_1', 'cutiN_2', 'kuota_cuti'));
+
+        return redirect('/karyawan/pns/setting_cuti/' . $request->input('id_pegawai'))->with('success', 'Data cuti berhasil diperbarui');
+    }
+
     public function aktivasiCuti(Pegawai $pegawai)
     {
         $pegawai->hak_cuti = '1';
@@ -73,8 +110,9 @@ class KaryawanController extends Controller
         $cutiSetting = new CutiSetting();
         $cutiSetting->pegawai_id = $pegawai->id;
         $cutiSetting->kuota_cuti_tahunan = 12;
-
+        $cutiSetting->kuota_cuti = 12;
         $cutiSetting->save();
+
         return redirect()->back()->with('cuti_success', 'Status cuti berhasil diaktifkan');
     }
 

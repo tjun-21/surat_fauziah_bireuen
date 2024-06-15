@@ -40,6 +40,16 @@ class HitungCutiTahunanService
         ];
     }
 
+    // function addDataAfterAktivasi($params)
+    // {
+    //     $data = CutiSetting::where('pegawai_id', $param)->first();
+    //     if ($data) {
+    //         $data->kuota$data->kuota_cuti_tahunan
+    //         $data->cuti_diambil = $totalHariCuti;
+    //         $data->save();
+    //     }
+    // }
+
     public function getData($param)
     {
         // Pastikan model Cuti telah diimpor

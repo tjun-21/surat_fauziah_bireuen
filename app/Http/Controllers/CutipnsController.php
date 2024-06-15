@@ -96,7 +96,7 @@ class CutipnsController extends Controller
                 }
                 $i--;
             }
-            // dd($kuotaN0);
+            // dd($kuotaN1);
             //    mengubah nilai negatif menjadi absolut
             // $kuotaN0 = abs($kuotaN0);
 
