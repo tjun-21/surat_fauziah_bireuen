@@ -6,10 +6,20 @@ namespace App\Http\Controllers;
 use App\Models\Cuti;
 use App\Models\Pegawai;
 use App\Models\JCuti;
+use App\Models\CutiSetting;
 use Illuminate\Http\Request;
 
+// load services 
+use App\Services\HitungCutiTahunanService;
+
 class CutipnsController extends Controller
+
 {
+    public $hitungCutiTahunanService;
+    public function __construct()
+    {
+        $this->hitungCutiTahunanService = new HitungCutiTahunanService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -47,42 +57,81 @@ class CutipnsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $validatedData = $request->validate([
-
-            'pegawai_id' => 'required|max:255',
-            'jcuti_id'    => 'required',
-            'alasan' => 'required',
-            'tgl_mulai' => 'required',
-            'alamat_cuti' => 'required',
-            'pt_1' => 'required',
-            'pt_2' => 'required',
-            'alasan' => 'required',
-            'tgl_akhir' => 'required',
-
-        ]);
         $tgl_mulai = strtotime($data['tgl_mulai']);
         $tgl_akhir = strtotime($data['tgl_akhir']);
 
         $selisih_detik = $tgl_akhir - $tgl_mulai;
-        $jumlah_hari = intval($selisih_detik / (60 * 60 * 24)) + 1;
-        // dd($jumlah_hari);
-        $data_save = [
-            'pegawai_id' => $data['pegawai_id'],
-            'jcuti_id' => $data['jcuti_id'],
-            'alasan' => $data['alasan'],
-            'tgl_mulai' => $data['tgl_mulai'],
-            'alamat_cuti' => $data['alamat_cuti'],
-            'pt_1' => $data['pt_1'],
-            'pt_2' => $data['pt_2'],
-            'alasan' => $data['alasan'],
-            'tgl_akhir' => $data['tgl_akhir'],
-            'j_hari' => $jumlah_hari
+        $jumlah = intval($selisih_detik / (60 * 60 * 24)) + 1;
+        $jumlah_hari = $jumlah;
 
-        ];
+        if ($data['jcuti_id'] == '1') {
+            $paramater = $data['pegawai_id'];
+            $result = $this->hitungCutiTahunanService->kuotaCuti($paramater);
+            // dd($result);
+            $kuotaCuti = $result['kuotaCuti'];
+            $n2 = $result['n2'];
+            $n1 = $result['n1'];
+            $n0 = $result['n'];
+            $idSett = $result['id_set'];
+            $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);
+            // dd($jumlah_hari);
+            $jumlahCuti = $jumlahCuti + $jumlah_hari;
+            // $jumlah_hari = $jumlahCuti + $jumlah_hari;
+            // dd($jumlahCuti);
+        }
+        if ($jumlahCuti > $kuotaCuti) {
+            $messages = 'Jumlah cuti melewati batas';
+        } else {
+            $i = 2;
+            while ($jumlah_hari > 0) {
+                if (${'n' . $i} > 0) {
+                    // dd(${'n' . $i});
+                    ${'kuotaN' . $i} = ${'n' . $i} - $jumlah_hari;
+                    if (${'kuotaN' . $i} < 1) {
+                        ${'kuotaN' . $i} = 0;
+                    }
+                    $jumlah_hari = $jumlah_hari - ${'n' . $i};
+                } else {
+                    ${'kuotaN' . $i} = 0;
+                }
+                $i--;
+            }
+            // dd($kuotaN1);
+            //    mengubah nilai negatif menjadi absolut
+            // $kuotaN0 = abs($kuotaN0);
 
-        Cuti::create($data_save);
+            $data_save = [
+                'pegawai_id' => $data['pegawai_id'],
+                'jcuti_id' => $data['jcuti_id'],
+                'alasan' => $data['alasan'],
+                'tgl_mulai' => $data['tgl_mulai'],
+                'alamat_cuti' => $data['alamat_cuti'],
+                'pt_1' => $data['pt_1'],
+                'pt_2' => $data['pt_2'],
+                'alasan' => $data['alasan'],
+                'tgl_akhir' => $data['tgl_akhir'],
+                'j_hari' => $jumlah
 
-        return redirect()->back()->with('success', 'data cuti berhasil ditambahkan');
+            ];
+
+            $updateCutiSett = [
+                // 'id' => $idSett,
+                'kuota_cuti_tahunan' => $kuotaN0,
+                'cutiN_1' => $kuotaN1,
+                'cutiN_2' => $kuotaN2
+            ];
+
+            Cuti::create($data_save);
+
+            $cutiSett = CutiSetting::find($idSett);
+
+            if ($cutiSett) {
+                // Update data
+                $cutiSett->update($updateCutiSett);
+            }
+            $messages = 'Data cuti berhaail ditambahkan';
+        }
+        return redirect()->back()->with('cuti_success', $messages);
     }
 
     /**
