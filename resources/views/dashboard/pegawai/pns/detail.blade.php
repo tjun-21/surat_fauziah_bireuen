@@ -102,16 +102,23 @@
     </tr>
     <tr>
       <th scope="row">12</th>
-      <td>Cuti Tahunan Diambil</td>
+      <td>Kuota Cuti</td>
       <td>:</td>
-      <td>{{ isset($jumlah_cuti) ? $jumlah_cuti : '-' }}
+      <td>{{ isset($pegawai->cutiSetting->kuota_cuti) ? $pegawai->cutiSetting->kuota_cuti : '-' }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">12</th>
+      <td>Cuti Diambil</td>
+      <td>:</td>
+      <td>{{ isset($pegawai->cutiSetting->cuti_diambil) ? $pegawai->cutiSetting->cuti_diambil : '-' }}
       </td>
     </tr>
     <tr>
       <th scope="row">13</th>
       <td>Sisa Cuti</td>
       <td>:</td>
-      <td>{{ isset($pegawai->cutiSetting->kuota_cuti_tahunan) ? $pegawai->cutiSetting->kuota_cuti_tahunan - $jumlah_cuti : '-' }}</td>
+      <td>{{ isset($pegawai->cutiSetting->kuota_cuti) ? $pegawai->cutiSetting->kuota_cuti - $jumlah_cuti : '-' }}</td>
     </tr>
 
   </tbody>

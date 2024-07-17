@@ -17,6 +17,39 @@ class HitungCutiTahunanService
         $this->cutiSetting = new CutiSetting();
     }
 
+    public function kuotaCuti($param)
+    {
+        $kuotaCuti = DB::table('cuti_settings')
+            ->where('pegawai_id', $param)
+            ->get();
+
+        foreach ($kuotaCuti as $k) {
+            $kuotaCuti = $k->kuota_cuti;
+            $n_2 = $k->cutiN_2;
+            $n_1 = $k->cutiN_1;
+            $n = $k->kuota_cuti_tahunan;
+            $id_set = $k->id;
+        }
+        // dd($sisaCuti);
+        return [
+            'kuotaCuti' => $kuotaCuti,
+            'n2' => $n_2,
+            'n1' => $n_1,
+            'n' => $n,
+            'id_set' => $id_set
+        ];
+    }
+
+    // function addDataAfterAktivasi($params)
+    // {
+    //     $data = CutiSetting::where('pegawai_id', $param)->first();
+    //     if ($data) {
+    //         $data->kuota$data->kuota_cuti_tahunan
+    //         $data->cuti_diambil = $totalHariCuti;
+    //         $data->save();
+    //     }
+    // }
+
     public function getData($param)
     {
         // Pastikan model Cuti telah diimpor
