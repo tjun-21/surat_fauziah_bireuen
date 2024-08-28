@@ -51,7 +51,7 @@ class SuratController extends Controller
     public function cuti(Pegawai $pegawai)
     {
         $paramater = $pegawai['id'];
-        $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);
+        // $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);  
         return view('surat.cuti.formcuti', [
             "title" => 'Form Cuti',
             "sub_title" => "PNS",

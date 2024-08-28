@@ -50,7 +50,7 @@ class HitungCutiTahunanService
     //     }
     // }
 
-    public function getData($param)
+    public function HitungPengambilanCuti($param)
     {
         // Pastikan model Cuti telah diimpor
         $dataCuti = DB::table('cutis')
@@ -74,6 +74,7 @@ class HitungCutiTahunanService
         }
 
         // Mengembalikan total hari cuti
+        // dd($totalHariCuti);
         return $totalHariCuti;
     }
 }

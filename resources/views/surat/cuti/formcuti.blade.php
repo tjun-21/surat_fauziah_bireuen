@@ -50,6 +50,10 @@
   {{ session('cuti_success') }}
 </div>
 
+@elseif(session()->has('cuti_fail'))
+<div class="alert alert-danger" role="alert">
+  {{ session('cuti_fail') }}
+</div>
 @endif
 
 @if($pegawai->hak_cuti == 0)
@@ -100,7 +104,7 @@
         <div class="container mt-3">
           <h3 class="mb-3 text-center"> Isi Data {{ $title }} Berikut Untuk Membuat Surat {{ $sub_title }} </h3>
           <div class="row">
-            <form method="POST" action="{{ route('cuti.store') }}" class="mb-4">
+            <form id="myForm" method="POST" action="{{ route('cuti.store') }}" class="mb-4">
               @csrf
               <div class="mb-3">
                 {{-- <label for="nama" class="form-label">Id Pegawai</label> --}}
@@ -140,12 +144,12 @@
 
                 <div class="mb-3">
                   <label for="nama" class="form-label">Tanggal Mulai</label>
-                  <input type="date" name="tgl_mulai" class="form-control">
+                  <input type="date" id="tgl_mulai" name="tgl_mulai" class="form-control">
                 </div>
 
                 <div class="">
                   <label for="nama" class="form-label">Tanggal Akhir</label>
-                  <input type="date" name="tgl_akhir" class="form-control">
+                  <input type="date" id="tgl_akhir" name="tgl_akhir" class="form-control">
                 </div>
               </div>
 
@@ -187,6 +191,21 @@
   @include('partials.cuti_history')
   @endif
 
+  <script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+      // Ambil nilai dari input tgl_akhir
+      const tglAwal = new Date(document.getElementById('tgl_awal').value);
+      const tglAkhir = new Date(document.getElementById('tgl_akhir').value);
+      // Ambil tanggal hari ini tanpa waktu (hanya tanggal)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
+      // Cek apakah tgl_akhir lebih kecil dari hari ini
+      if (tglAkhir < today) {
+        alert('Tanggal Akhir harus sama dengan atau lebih besar dari hari ini.');
+        event.preventDefault(); // Batalkan submit form
+      }
+    });
+  </script>
 
   @endsection
