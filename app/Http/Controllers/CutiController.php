@@ -100,6 +100,7 @@ class CutiController extends Controller
      */
     public function destroy(Cuti $cuti)
     {
-        //
+        $cuti->delete();
+        return redirect('/surat/pns')->with('success', 'data berhasil dihapus');
     }
 }

@@ -99,7 +99,7 @@
       <div class="card">
         <div class="container mt-3">
           <h3 class="mb-3 text-center"> Isi Data {{ $title }} Berikut Untuk Membuat Surat {{ $sub_title }} </h3><br>
-          <div class="bg-danger text-white col-lg-4 text-center">SISA KUOTA CUTI TAHUNAN ANDA : {{ $pegawai->cutiSetting->cuti_diambil + $pegawai->cutiSetting->cutiN_1 + $pegawai->cutiSetting->cutiN_2}}  HARI</div>
+          <div class="bg-danger text-white col-lg-4 text-center">SISA KUOTA CUTI TAHUNAN ANDA : {{ $pegawai->cutiSetting->kuota_cuti}}  HARI</div>
           <div class="row">
             <form method="POST" action="{{ route('cuti.store') }}" class="mb-4">
               @csrf

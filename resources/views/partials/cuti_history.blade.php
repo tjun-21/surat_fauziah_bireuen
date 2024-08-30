@@ -7,12 +7,7 @@
             <div class="col-auto">
               <h5>Tabel History Pengambilan Cuti </h5>
             </div>
-            <div class="col text-end">
      
-              <button type="button" class="btn btn-warning col-lg-3" data-bs-toggle="modal" data-bs-target="#modalcuti" data-bs-whatever="@mdo">Edit Cuti Tahunan</button>
-     
-
-            </div>
         </div>
     </div>
       <div class="container">
@@ -27,39 +22,6 @@
   @foreach ($pegawai as $data)
       
 
-<div class="modal fade" id="modalcuti" tabindex="-1" aria-labelledby="modalcutiLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalcutiLabel">DATA JUMLAH CUTI</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('cutisetting.update',$pegawai->id) }}" method="post">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Jumlah Cuti Tahun Ini</label>
-            <input type="text" class="form-control" id="kuota_cuti_tahunan" value="{{ $pegawai->CutiSetting->cuti_diambil }}">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Jumlah Cuti 1 tahun Sebelumnya </label>
-            <input type="text" class="form-control" id="cutiN_1" value="{{ $pegawai->CutiSetting->cutiN_1 }}">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Jumlah Cuti 2 tahun Sebelumnya</label>
-            <input type="text" class="form-control" id="cutiN_2" value="{{ $pegawai->CutiSetting->cutiN_2 }}">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-primary">Ubah</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-       
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
 @endforeach 
         <hr>
         <table class="table table-bordered">
@@ -97,9 +59,9 @@
                           {{ $s->alasan }}
                         </td>
                         <td>
-                            <a href="{{ route ('cuti.update',$pegawai->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
+                            <a href="{{ route ('cuti.update',$s->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
                 
-                            <form action="{{ route ('cuti.destroy',$pegawai->id) }} " method="post" class="d-inline ">
+                            <form action="{{ route ('cuti.destroy',$s->id) }} " method="post" class="d-inline ">
                           
                               @method("delete")
                               @csrf

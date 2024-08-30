@@ -161,9 +161,9 @@ class CutipnsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cuti $cuti)
+    public function destroy(Cuti $s)
     {
-        $golongan->delete();
-        return redirect('/golongan')->with('success', 'data berhasil dihapus');
+        $s->delete();
+        return redirect()->back()->with('success', 'data berhasil dihapus');
     }
 }

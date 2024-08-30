@@ -214,4 +214,12 @@ class KaryawanController extends Controller
         $pdf = Pdf::loadView('surat.template.rekomendasi', $data)->setPaper('a4', 'potrait');
         return $pdf->stream('suratrekomedasi.pdf');
     }
+
+    public function destroy(Rekomendasi $rekomendasi)
+    {
+        $rekomendasi->delete();
+        return redirect()->back()->with('success', 'data berhasil dihapus');
+       
+    }
+
 }
