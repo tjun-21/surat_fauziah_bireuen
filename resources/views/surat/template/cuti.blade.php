@@ -192,34 +192,34 @@
             </tr>
             <tr>
                 <td align="center" class="tg">N-2</td>
-                <td align="center" class="tg"></td>
-                <td align="center" class="tg"></td>
-                <td align="center" class="tg">2021</td>
+                <td align="center" class="tg">6</td>
+                <td align="center" class="tg">{{ $cuti->pegawai->cutiSetting->cutiN_2}}</td>
+                <td align="center" class="tg">2022</td>
                 <td class="tg">3. CUTI SAKIT</td>
                 <td class="tg"></td>
                 
             </tr>
             <tr>
                 <td align="center" class="tg">N-1</td>
-                <td align="center" class="tg"></td>
-                <td align="center" class="tg"></td>
-                <td align="center" class="tg">2022</td>
-                <td  class="tg">3. CUTI MELAHIRKAN</td>
+                <td align="center" class="tg">6</td>
+                <td align="center" class="tg">{{ $cuti->pegawai->cutiSetting->cutiN_1}}</td>
+                <td align="center" class="tg">2023</td>
+                <td  class="tg">4. CUTI MELAHIRKAN</td>
                 <td class="tg"></td>
                 
             </tr>
             <tr>
                 <td align="center" rowspan="2" class="tg">N</td>
                 <td align="center" rowspan="2" class="tg">12</td>
-                <td align="center" rowspan="2" class="tg"></td>
-                <td align="center" rowspan="2" class="tg">2023</td>
-                <td class="tg">4. CUTI KARENA ALASAN PENTING</td>
+                <td align="center" rowspan="2" class="tg">{{ $cuti->pegawai->cutiSetting->cuti_diambil}}</td>
+                <td align="center" rowspan="2" class="tg">2024</td>
+                <td class="tg">5. CUTI KARENA ALASAN PENTING</td>
                 <td class="tg"></td>
                 
             </tr>
             <tr>
                 
-                <td width="40%" class="tg">5. CUTI DILUAR TANGGUNGAN NEGARA</td>
+                <td width="40%" class="tg">6. CUTI DILUAR TANGGUNGAN NEGARA</td>
                 <td width="20%"  class="tg"></td>
                 
             </tr>
@@ -296,15 +296,17 @@
             <tr align="center">
                 <td class="tg" colspan="3"></td>
                 
-                <td class="tg">Kabid Bidang {{ $bidang->nama }}
+                <td class="tg">
        
                     <br>
                     <br>
                     <br>
                     <br>
-                    @foreach ($kabid as $kabid)
-                        {{ $kabid->nama }}<br> 
-                        {{ $kabid->nip }}<br> 
+                    @foreach ($pegawais as $pegawai)
+                        @if($pegawai->nip == $cuti ->pt_1)
+                            {{ $pegawai->nama }}<br> 
+                            {{ $pegawai->nip }}<br> 
+                        @endif
                     @endforeach
               
            
@@ -332,19 +334,24 @@
             </tr>
             <tr align="center">
                 <td class="tg" colspan="3"></td>
-                <td class="tg">Direktur RSUD dr. Fauziah Bireun
+                <td class="tg">
+
+                    @foreach ($pegawais as $pegawai)
+                        @if($pegawai->nip == $cuti ->pt_2)
+                            {{ $pegawai->jabatan->nama }}<br> 
+                        @endif
+                     @endforeach
                     <br>
                     <br>
                     <br>
                     <br>
 
                     @foreach ($pegawais as $pegawai)
-                        @if($pegawai->jabatan && $pegawai->jabatan->nama == 'Direktur')
+                        @if($pegawai->nip == $cuti ->pt_2)
                             {{ $pegawai->nama }}<br> 
                             {{ $pegawai->nip }}<br> 
                         @endif
                     @endforeach
-
                 </td>
              
             

@@ -1,6 +1,28 @@
 <div class="row">
-    <div class="row mt-5">
-        <h5>Tabel History Pengambilan Cuti</h5>
+    <div class="row mt-3" >
+       
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-auto">
+              <h5>Tabel History Pengambilan Cuti </h5>
+            </div>
+     
+        </div>
+    </div>
+      <div class="container">
+        <div class="">
+        
+            <div class="col-auto">
+            
+            </div>
+        </div>
+    </div>
+  
+  @foreach ($pegawai as $data)
+      
+
+@endforeach 
         <hr>
         <table class="table table-bordered">
             <thead>
@@ -37,9 +59,9 @@
                           {{ $s->alasan }}
                         </td>
                         <td>
-                            <a href="{{ route ('cuti.update',$pegawai->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
+                            <a href="{{ route ('cuti.update',$s->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
                 
-                            <form action="{{ route ('cuti.destroy',$pegawai->id) }} " method="post" class="d-inline ">
+                            <form action="{{ route ('cuti.destroy',$s->id) }} " method="post" class="d-inline ">
                           
                               @method("delete")
                               @csrf
@@ -106,3 +128,15 @@
           </table>
       </div> --}}
 </div>
+
+{{-- <script>
+  // Melewatkan data ke dalam modal saat modal ditampilkan
+  $('modalcuti').on('cutisetting.bs.modal', function (event) {
+    var modal = $(this);
+    var cutiData = @json($data); 
+    modal.find('.modal-body #kuota_cuti_tahunan').text('{{ $data->kuota_cuti_tahunan }}');
+    modal.find('.modal-body #cutiN_1').text('{{ $data->cutiN_1 }}');
+    modal.find('.modal-body #cutiN_2').text('{{ $data->cutiN_2 }}');
+    // Anda dapat menambahkan lebih banyak data di sini sesuai kebutuhan
+  });
+</script> --}}
