@@ -56,7 +56,7 @@ class KaryawanController extends Controller
     public function detail(Pegawai $pegawai)
     {
         $paramater = $pegawai['id'];
-        $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);
+        $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
         return view('dashboard.pegawai.pns.detail', [
             "active" => "karyawan",
             'title' => "data pegawai",

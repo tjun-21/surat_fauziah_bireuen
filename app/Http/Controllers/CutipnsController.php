@@ -57,12 +57,18 @@ class CutipnsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         $tgl_mulai = strtotime($data['tgl_mulai']);
         $tgl_akhir = strtotime($data['tgl_akhir']);
+        if ($tgl_mulai > $tgl_akhir) {
+            $messages = 'Tanggal Akhir harus lebih besar dari tanggal mulai cuti';
+            return redirect()->back()->with('cuti_fail', $messages);
+        }
 
         $selisih_detik = $tgl_akhir - $tgl_mulai;
         $jumlah = intval($selisih_detik / (60 * 60 * 24)) + 1;
         $jumlah_hari = $jumlah;
+        dd($jumlah);
 
         if ($data['jcuti_id'] == '1') {
             $paramater = $data['pegawai_id'];
@@ -73,29 +79,42 @@ class CutipnsController extends Controller
             $n1 = $result['n1'];
             $n0 = $result['n'];
             $idSett = $result['id_set'];
-            $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);
-            // dd($jumlah_hari);
+            $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+            // dd($kuotaCuti);
             $jumlahCuti = $jumlahCuti + $jumlah_hari;
             // $jumlah_hari = $jumlahCuti + $jumlah_hari;
-            // dd($jumlahCuti);
+            // dd($n0);
         }
         if ($jumlahCuti > $kuotaCuti) {
             $messages = 'Jumlah cuti melewati batas';
         } else {
+            $kuotaN2 = $kuotaN1 = $kuotaN0 = null;
             $i = 2;
             while ($jumlah_hari > 0) {
                 if (${'n' . $i} > 0) {
                     // dd(${'n' . $i});
                     ${'kuotaN' . $i} = ${'n' . $i} - $jumlah_hari;
+                    // dd($kuotaN2);
                     if (${'kuotaN' . $i} < 1) {
                         ${'kuotaN' . $i} = 0;
                     }
                     $jumlah_hari = $jumlah_hari - ${'n' . $i};
+                    // dd($jumlah_hari);
                 } else {
                     ${'kuotaN' . $i} = 0;
                 }
                 $i--;
             }
+            if (!$kuotaN2) {
+                $kuotaN2 = $n2;
+            }
+            if (!$kuotaN1) {
+                $kuotaN1 = $n1;
+            }
+            if (!$kuotaN0) {
+                $kuotaN0 = $n0;
+            }
+            // dd($kuotaN0);
             // dd($kuotaN1);
             //    mengubah nilai negatif menjadi absolut
             // $kuotaN0 = abs($kuotaN0);
@@ -129,7 +148,7 @@ class CutipnsController extends Controller
                 // Update data
                 $cutiSett->update($updateCutiSett);
             }
-            $messages = 'Data cuti berhaail ditambahkan';
+            $messages = 'Data cuti berhasil ditambahkan';
         }
         return redirect()->back()->with('cuti_success', $messages);
     }
