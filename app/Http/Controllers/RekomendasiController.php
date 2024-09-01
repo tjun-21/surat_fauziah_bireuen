@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreRekomendasiRequest;
 use App\Http\Requests\UpdateRekomendasiRequest;
 use App\Models\Rekomendasi;
+use App\Models\Surat;
+use App\Models\Pegawai;
+
 use App\Models\Cuti;
 
 class RekomendasiController extends Controller
@@ -64,22 +67,37 @@ class RekomendasiController extends Controller
      */
     public function edit(Rekomendasi $rekomendasi)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRekomendasiRequest $request, Rekomendasi $rekomendasi)
+    public function update(Request $request, $id)
     {
-        //
+        // Validasi data (opsional, tetapi disarankan)
+        $validatedData = $request->validate([
+            'alamat_cuti' => 'required|string|max:255',
+        ]);
+
+        // Mencari data yang akan diupdate
+        $rekomendasi = Rekomendasi::findOrFail($id);
+        $rekomendasi->alamatrekom = $request->input('alamat_cuti');
+        
+        // Menyimpan perubahan
+        $rekomendasi->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Alamat Rekomendasi berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rekomendasi $rekomendasi)
+    public function destroy($id)
     {
-        //
+        $rekomendasi = Rekomendasi::findOrFail($id);
+        $rekomendasi->delete();
+        return redirect()->back()->with('success','data berhasil dihapus');
     }
 }
