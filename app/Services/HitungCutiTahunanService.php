@@ -19,36 +19,84 @@ class HitungCutiTahunanService
 
     public function kuotaCuti($param)
     {
-        $kuotaCuti = DB::table('cuti_settings')
+        $cutiSetting = DB::table('cuti_settings')
             ->where('pegawai_id', $param)
-            ->get();
+            ->first(); // Mengambil satu baris data
 
-        foreach ($kuotaCuti as $k) {
-            $kuotaCuti = $k->kuota_cuti;
-            $n_2 = $k->cutiN_2;
-            $n_1 = $k->cutiN_1;
-            $n = $k->kuota_cuti_tahunan;
-            $id_set = $k->id;
+        // Jika data tidak ditemukan
+        if (!$cutiSetting) {
+            return [
+                'kuotaCuti' => 0,
+                'n2' => 0,
+                'n1' => 0,
+                'n' => 0,
+                'id_set' => null,
+                'cuti_diambil' => 0,
+            ];
         }
-        // dd($sisaCuti);
+
+        // Jika data ditemukan
         return [
-            'kuotaCuti' => $kuotaCuti,
-            'n2' => $n_2,
-            'n1' => $n_1,
-            'n' => $n,
-            'id_set' => $id_set
+            'kuotaCuti' => $cutiSetting->kuota_cuti,
+            'n2' => $cutiSetting->cutiN_2,
+            'n1' => $cutiSetting->cutiN_1,
+            'n' => $cutiSetting->kuota_cuti_tahunan,
+            'id_set' => $cutiSetting->id,
+            'cuti_diambil' => $cutiSetting->cuti_diambil
         ];
     }
 
-    // function addDataAfterAktivasi($params)
-    // {
-    //     $data = CutiSetting::where('pegawai_id', $param)->first();
-    //     if ($data) {
-    //         $data->kuota$data->kuota_cuti_tahunan
-    //         $data->cuti_diambil = $totalHariCuti;
-    //         $data->save();
-    //     }
-    // }
+    public function sisaCuti($param)
+    {
+        $data = $this->kuotaCuti($param);
+        // dd($data);
+        $cuti_diambil = $data['cuti_diambil'];
+        $n2 = $data['n2'];
+        $n1 = $data['n1'];
+        $n = $data['n'];
+
+        $sn1 = $sn2 = $sn = 0;
+
+        if ($cuti_diambil > 0) {
+            if ($n2 > 0) {
+                if ($n2 > $cuti_diambil) {
+                    $sn2 = $n2 - $cuti_diambil;
+                    $cuti_diambil = 0;
+                } else {
+                    $cuti_diambil = $cuti_diambil - $n2;
+                }
+            }
+
+            if ($n1 > 0) {
+                if ($n1 > $cuti_diambil) {
+                    $sn1 = $n1 - $cuti_diambil;
+                    $cuti_diambil = 0;
+                } else {
+                    $cuti_diambil = $cuti_diambil - $n1;
+                }
+            }
+
+            if ($n > 0) {
+                if ($n > $cuti_diambil) {
+                    $sn = $n - $cuti_diambil;
+                    $cuti_diambil = 0;
+                } else {
+                    $cuti_diambil = $cuti_diambil - $n;
+                }
+            }
+            // dd($cuti_diambil);
+        }
+        return [
+            'n2' => $n2,
+            'n1' => $n1,
+            'n' => $n,
+            'sn2' => $sn2,
+            'sn1' => $sn1,
+            'sn' => $sn,
+            // 'cuti_diambil' => $cuti_diambil
+
+        ];
+    }
 
     public function HitungPengambilanCuti($param)
     {

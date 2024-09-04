@@ -68,57 +68,50 @@ class CutipnsController extends Controller
         $selisih_detik = $tgl_akhir - $tgl_mulai;
         $jumlah = intval($selisih_detik / (60 * 60 * 24)) + 1;
         $jumlah_hari = $jumlah;
-        dd($jumlah);
 
         if ($data['jcuti_id'] == '1') {
             $paramater = $data['pegawai_id'];
-            $result = $this->hitungCutiTahunanService->kuotaCuti($paramater);
-            // dd($result);
-            $kuotaCuti = $result['kuotaCuti'];
-            $n2 = $result['n2'];
-            $n1 = $result['n1'];
-            $n0 = $result['n'];
-            $idSett = $result['id_set'];
-            $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
-            // dd($kuotaCuti);
-            $jumlahCuti = $jumlahCuti + $jumlah_hari;
-            // $jumlah_hari = $jumlahCuti + $jumlah_hari;
-            // dd($n0);
-        }
-        if ($jumlahCuti > $kuotaCuti) {
-            $messages = 'Jumlah cuti melewati batas';
-        } else {
-            $kuotaN2 = $kuotaN1 = $kuotaN0 = null;
-            $i = 2;
-            while ($jumlah_hari > 0) {
-                if (${'n' . $i} > 0) {
-                    // dd(${'n' . $i});
-                    ${'kuotaN' . $i} = ${'n' . $i} - $jumlah_hari;
-                    // dd($kuotaN2);
-                    if (${'kuotaN' . $i} < 1) {
-                        ${'kuotaN' . $i} = 0;
-                    }
-                    $jumlah_hari = $jumlah_hari - ${'n' . $i};
-                    // dd($jumlah_hari);
-                } else {
-                    ${'kuotaN' . $i} = 0;
-                }
-                $i--;
-            }
-            if (!$kuotaN2) {
-                $kuotaN2 = $n2;
-            }
-            if (!$kuotaN1) {
-                $kuotaN1 = $n1;
-            }
-            if (!$kuotaN0) {
-                $kuotaN0 = $n0;
-            }
-            // dd($kuotaN0);
-            // dd($kuotaN1);
-            //    mengubah nilai negatif menjadi absolut
-            // $kuotaN0 = abs($kuotaN0);
+            $kuota = $this->hitungCutiTahunanService->kuotaCuti($paramater);
+            $kuotaCuti = $kuota['kuotaCuti'];
+            $idSett = $kuota['id_set'];
 
+            // cek jumlah cuti yang sudah diambil + cuti yang mau di ambil 
+            $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+            $jumlahCuti = $jumlahCuti + $jumlah_hari;
+
+            if ($jumlahCuti > $kuotaCuti) {
+                $messages = 'Jumlah cuti tahunan melewati kuota cuti';
+            } else {
+                $data_save = [
+                    'pegawai_id' => $data['pegawai_id'],
+                    'jcuti_id' => $data['jcuti_id'],
+                    'alasan' => $data['alasan'],
+                    'tgl_mulai' => $data['tgl_mulai'],
+                    'alamat_cuti' => $data['alamat_cuti'],
+                    'pt_1' => $data['pt_1'],
+                    'pt_2' => $data['pt_2'],
+                    'alasan' => $data['alasan'],
+                    'tgl_akhir' => $data['tgl_akhir'],
+                    'j_hari' => $jumlah_hari
+
+                ];
+
+                $updateCutiSett = [
+                    // 'id' => $idSett,
+                    'cuti_diambil' => $jumlahCuti
+                ];
+
+                Cuti::create($data_save);
+
+                $cutiSett = CutiSetting::find($idSett);
+
+                if ($cutiSett) {
+                    // Update data
+                    $cutiSett->update($updateCutiSett);
+                }
+                $messages = 'Data cuti Tahunan berhasil ditambahkan';
+            }
+        } else {
             $data_save = [
                 'pegawai_id' => $data['pegawai_id'],
                 'jcuti_id' => $data['jcuti_id'],
@@ -129,27 +122,13 @@ class CutipnsController extends Controller
                 'pt_2' => $data['pt_2'],
                 'alasan' => $data['alasan'],
                 'tgl_akhir' => $data['tgl_akhir'],
-                'j_hari' => $jumlah
+                'j_hari' => $jumlah_hari
 
             ];
-
-            $updateCutiSett = [
-                // 'id' => $idSett,
-                'kuota_cuti_tahunan' => $kuotaN0,
-                'cutiN_1' => $kuotaN1,
-                'cutiN_2' => $kuotaN2
-            ];
-
             Cuti::create($data_save);
-
-            $cutiSett = CutiSetting::find($idSett);
-
-            if ($cutiSett) {
-                // Update data
-                $cutiSett->update($updateCutiSett);
-            }
             $messages = 'Data cuti berhasil ditambahkan';
         }
+
         return redirect()->back()->with('cuti_success', $messages);
     }
 
