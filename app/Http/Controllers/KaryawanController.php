@@ -58,14 +58,15 @@ class KaryawanController extends Controller
     public function detail(Pegawai $pegawai)
     {
         $paramater = $pegawai['id'];
-        $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+        // $dataCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+        // dd($dataCuti);
         return view('dashboard.pegawai.pns.detail', [
             "active" => "karyawan",
             'title' => "data pegawai",
             "pegawai" => $pegawai,
             "surat" => $pegawai->surat,
-            "cuti" => $pegawai->cuti,
-            "jumlah_cuti" => $jumlahCuti
+            "cuti" => $pegawai->cuti()->where('status', 1)->get(),
+            // "jumlah_cuti" => $dataCuti
 
         ]);
     }
@@ -115,6 +116,7 @@ class KaryawanController extends Controller
     public function aktivasiCuti(Pegawai $pegawai)
     {
         $pegawai->hak_cuti = '1';
+        // dd($pegawai);
         $pegawai->save();
 
         $cutiSetting = new CutiSetting();

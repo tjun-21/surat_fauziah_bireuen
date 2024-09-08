@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Surat;
 use App\Models\Pegawai;
 use App\Models\Kategori;
+use App\Models\Cuti;
 use App\Models\Jabatan;
 use App\Models\Rekomendasi;
 use App\Models\JCuti;
@@ -50,13 +51,11 @@ class SuratController extends Controller
 
     public function cuti(Pegawai $pegawai)
     {
-        $paramater = $pegawai['id'];
-        // $jumlahCuti = $this->hitungCutiTahunanService->getData($paramater);  
         return view('surat.cuti.formcuti', [
             "title" => 'Form Cuti',
             "sub_title" => "PNS",
             "surat" => $pegawai->surat,
-            "cuti" => $pegawai->cuti,
+            "cuti" => $pegawai->cuti()->where('status', 1)->get(),
             "pegawai" => $pegawai,
             "pegawais" => Pegawai::all(),
             "j_cuti" => JCuti::all(),

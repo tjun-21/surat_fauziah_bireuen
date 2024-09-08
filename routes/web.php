@@ -68,6 +68,7 @@ Route::get('/surat/kontrak/{pegawai:id}', [SuratController::class, 'cuti']);
 
 // setting data cuti user 
 Route::get('/karyawan/pns/setting_cuti/{pegawai:id}', [KaryawanController::class, 'setting_cuti']);
+Route::get('/karyawan/p3k/setting_cuti/{pegawai:id}', [KaryawanController::class, 'setting_cuti']);
 Route::put('/karyawan/pns/setting_cuti/update/{id}', [KaryawanController::class, 'updateSettingCuti'])->name('updateSettingCuti');
 
 //route form surat rekomendasi
@@ -86,6 +87,7 @@ Route::get('/karyawan/p3k/{pegawai:id}', [Crudp3kController::class, 'detail']);
 Route::get('/karyawan/kontrak/{pegawai:id}', [CrudkontrakController::class, 'detail']);
 // aktivasi cuti 
 Route::get('/karyawan/pns/status_cuti/{pegawai:id}', [KaryawanController::class, 'aktivasiCuti']);
+Route::get('/karyawan/p3k/status_cuti/{pegawai:id}', [KaryawanController::class, 'aktivasiCuti']);
 
 
 //print cuti

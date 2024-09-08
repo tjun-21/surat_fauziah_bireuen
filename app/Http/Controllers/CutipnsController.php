@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Cuti;
 use App\Models\Pegawai;
@@ -30,7 +31,7 @@ class CutipnsController extends Controller
             [
                 "title" => 'List Surat Cuti',
                 'active' => 'datamaster',
-                "jabatan" => cuti::all(),
+                // "jabatan" => cuti::all(),
                 "cuti" => Cuti::all()
             ]
         );
@@ -159,9 +160,38 @@ class CutipnsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cuti $cuti)
+    public function destroy(Cuti $cuti, Request $request)
     {
-        $golongan->delete();
-        return redirect('/golongan')->with('success', 'data berhasil dihapus');
+        $reason = $request->input('reason');
+        // dd($cuti['id']);
+        $data = $cuti;
+        // dd($data);
+        $cutiSett = CutiSetting::where('pegawai_id', $data['pegawai_id'])->first();
+        // kembalikan data cuti 
+        $updateCutiSett = [
+            // 'id' => $idSett,
+            'cuti_diambil' => $cutiSett['cuti_diambil'] - $data['j_hari']
+        ];
+        // dd($updateCutiSett);
+
+        // Simpan alasan penghapusan ke dalam database (opsional)
+        DB::table('cuti_delete')->insert([
+            'id' => $data->id,
+            'alasan_batal' => $reason,
+            'created_at' => now()
+        ]);
+
+        // Hapus data cuti
+        $dataCuti = Cuti::find($data->id);
+        if ($dataCuti) {
+            $dataCuti->status = '0';
+            $dataCuti->save();
+            $cutiSett->update($updateCutiSett);
+        } else {
+            // Menangani kasus jika model tidak ditemukan
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+
+        return redirect()->back()->with('success', 'Data cuti berhasil dihapus.');
     }
 }

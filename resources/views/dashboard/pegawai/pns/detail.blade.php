@@ -118,7 +118,7 @@
       <th scope="row">13</th>
       <td>Sisa Cuti</td>
       <td>:</td>
-      <td>{{ isset($pegawai->cutiSetting->kuota_cuti) ? $pegawai->cutiSetting->kuota_cuti - $jumlah_cuti : '-' }}</td>
+      <td>{{ isset($pegawai->cutiSetting->kuota_cuti) ? $pegawai->cutiSetting->kuota_cuti - $pegawai->cutiSetting->cuti_diambil : '-' }}</td>
     </tr>
 
   </tbody>

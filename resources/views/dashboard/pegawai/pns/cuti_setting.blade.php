@@ -45,7 +45,7 @@
     @endif
 </div>
 
-<!-- @include('partials.cuti_history') -->
+
 
 <script src="{{ asset('js/settingCuti/calculate_quota.js') }}"></script>
 @endsection
