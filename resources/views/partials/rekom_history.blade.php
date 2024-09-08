@@ -1,16 +1,10 @@
 <div class="row mt-5">
         <h5>Tabel History Pembuatan Surat Rekomendasi</h5>
-        <p>simpan edit data alamat praktek <br>
-         
-        </p>
         <hr>
-
-        
         <table class="table table-bordered">
             <thead>
               <tr>
                 <th>No</th>
-                
                 <th>Alamat Rekomendasi</th>
                 <th>Tanggal Pembuatan</th>
                 <th>Aksi</th>
@@ -72,7 +66,7 @@
                             </form>
 
                             <a href="/karyawan/printrekomendasi/{{ $s->id }}"class="badge bg-primary "><span data-feather="printer"></span></a>
-                            {{-- <a href="/lihatsurat/surat/{{ $s->id }}">lihat</a> --}}
+                            
                         </td>
                     </tr>
                   @endforeach

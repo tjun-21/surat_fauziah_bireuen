@@ -110,6 +110,9 @@
                         <a href="/fungsional"  class="nav-link"><p class="text-dark m-0">Fungsional</p></a>
                     </li>
                     <li class="list-group-item">
+                        <a href="/pangkat"  class="nav-link"><p class="text-dark m-0">Pangkat</p></a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="/golongan" class="nav-link "><p class="text-dark m-0">Golongan</p></a>
                     </li>
                     <li class="list-group-item">

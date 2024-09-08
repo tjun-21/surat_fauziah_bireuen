@@ -15,6 +15,7 @@ use App\Http\Controllers\Crudp3kController;
 use App\Http\Controllers\CutipnsController;
 use App\Http\Controllers\RekomendasiController;
 
+use App\Http\Controllers\PangkatController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\GolonganController;
@@ -110,6 +111,7 @@ Route::get('/fungsional/checkSlug', [FungsionalController::class, 'checkSlug']);
 Route::get('/unit/checkSlug', [UnitController::class, 'checkSlug']);
 Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
 Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
+Route::get('/pangkat/checkSlug', [PangkatController::class, 'checkSlug']);
 
 //route menampilkan list pegawai
 Route::get('/PNS/{kategori:slug}', [CrudpnsController::class, 'kategori']);
@@ -147,6 +149,7 @@ Route::resource('/golongan', GolonganController::class);
 Route::resource('/fungsional', FungsionalController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/kategori', KategoriController::class);
+Route::resource('/pangkat', PangkatController::class);
 
 //edit cuti seting
 Route::match(['get','post'], 'edit/{pegawai:id}',[CutisettingController::class, 'editcutisetting']);

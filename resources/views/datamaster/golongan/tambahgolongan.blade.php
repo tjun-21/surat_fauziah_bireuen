@@ -29,16 +29,26 @@
             <input type="text" class="form-control" id="slug" name="slug" placeholder="slug" value="{{ old('slug') }}" readonly>
            
           </div>
+
+          <div class="form-group">
+            <label for="kategori">Pangkat</label>
+            <select class="form-select" name="pangkat_id">
+                @foreach($pangkat as $pangkat)
+                    <option value="{{ $pangkat->id }}"> {{ $pangkat->nama }}</option>
+                @endforeach
+              </select>
+           
+          </div>
   
-  <div class="form-group">
-    <label for="kategori">Kategori</label>
-    <select class="form-select" name="kategori_id">
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}"> {{ $category->nama }}</option>
-        @endforeach
-      </select>
-   
-  </div>
+          <div class="form-group">
+            <label for="kategori">Kategori</label>
+            <select class="form-select" name="kategori_id">
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}"> {{ $category->nama }}</option>
+                @endforeach
+              </select>
+          
+          </div>
 
 <button type="submit" class="btn btn-primary mt-3">Tambah Golongan</button>
 </form>
