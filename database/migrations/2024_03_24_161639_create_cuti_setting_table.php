@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('cutiN_2')->default(0);
             $table->integer('kuota_cuti')->default(0);
             $table->integer('cuti_diambil')->default(0);
+            $table->integer('cuti_set')->default(0);
             $table->timestamps();
         });
     }

@@ -63,7 +63,7 @@
 
       <div class="card">
         <div class="container mt-3">
-          <h3 class="mb-3 text-center"> Cuti Belum di aktifasi </h3>
+          <h3 class="mb-3 text-center"> Cuti Belum di aktivasi </h3>
           <!-- <div class="text-center "> <button type="submit" class="btn btn-primary  col-lg-7 ">Buat Surat Cuti</button></div> -->
           <div class="text-center">
             <a class="btn btn-primary text-white col-lg-12 mb-2" href="/karyawan/{{ $pegawai->kategori->slug }}/status_cuti/{{ $pegawai->id }}">Aktivasi Cuti</a>
@@ -74,26 +74,6 @@
     </div>
   </div>
 </div>
-
-@elseif($pegawai->cutiSetting->cuti_diambil >= 12)
-<div class="container">
-  <div class="row">
-    <div class="col">
-
-      <div class="card">
-        <div class="container mt-3">
-          <h3 class="mb-3 text-center"> Sudah Mencapai Batas pengambilan cuti</h3>
-          <!-- <div class="text-center "> <button type="submit" class="btn btn-primary  col-lg-7 ">Buat Surat Cuti</button></div> -->
-          <div class="text-center">
-            <!-- <a class="btn btn-primary text-white col-lg-12 mb-2" href="/karyawan/{{ $pegawai->kategori->slug }}/status_cuti/{{ $pegawai->id }}">Aktivasi Cuti</a> -->
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-@include('partials.cuti_history')
 
 @else
 <div class="container">
@@ -191,24 +171,8 @@
       </div>
     </div>
   </div>
-  @include('partials.cuti_history')
   @endif
-
-  <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-      // Ambil nilai dari input tgl_akhir
-      const tglAwal = new Date(document.getElementById('tgl_awal').value);
-      const tglAkhir = new Date(document.getElementById('tgl_akhir').value);
-      // Ambil tanggal hari ini tanpa waktu (hanya tanggal)
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      // Cek apakah tgl_akhir lebih kecil dari hari ini
-      if (tglAkhir < today) {
-        alert('Tanggal Akhir harus sama dengan atau lebih besar dari hari ini.');
-        event.preventDefault(); // Batalkan submit form
-      }
-    });
-  </script>
+  @include('partials.cuti_history')
+  <script src="{{ asset('js/settingCuti/cek_tanggal.js') }}"></script>
 
   @endsection
