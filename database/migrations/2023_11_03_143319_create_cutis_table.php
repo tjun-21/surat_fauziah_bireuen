@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('pt_1')->default('0');
             $table->bigInteger('pt_2')->default('0');
             $table->integer('j_hari')->default('0');
+            $table->integer('status')->default('1');
 
             $table->timestamps();
         });

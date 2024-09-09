@@ -16,6 +16,7 @@ use App\Models\Bidang;
 
 // load services 
 use App\Services\HitungCutiTahunanService;
+use App\Services\PrintSuratCutiService;
 use App\Services\SettingDataCutiService;
 
 use Carbon\Carbon;
@@ -26,11 +27,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class KaryawanController extends Controller
 {
-    public $hitungCutiTahunanService, $settingDataCutiService;
+    public $hitungCutiTahunanService, $settingDataCutiService, $printSuratCutiService;
     public function __construct()
     {
         $this->hitungCutiTahunanService = new HitungCutiTahunanService;
         $this->settingDataCutiService = new SettingDataCutiService;
+        $this->printSuratCutiService = new PrintSuratCutiService;
     }
 
     public function kategori(Kategori $kategori)
@@ -56,14 +58,15 @@ class KaryawanController extends Controller
     public function detail(Pegawai $pegawai)
     {
         $paramater = $pegawai['id'];
-        $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+        // $dataCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+        // dd($dataCuti);
         return view('dashboard.pegawai.pns.detail', [
             "active" => "karyawan",
             'title' => "data pegawai",
             "pegawai" => $pegawai,
             "surat" => $pegawai->surat,
-            "cuti" => $pegawai->cuti,
-            "jumlah_cuti" => $jumlahCuti
+            "cuti" => $pegawai->cuti()->where('status', 1)->get(),
+            // "jumlah_cuti" => $dataCuti
 
         ]);
     }
@@ -96,8 +99,16 @@ class KaryawanController extends Controller
             'kuota_cuti' => 'required|numeric',
         ]);
 
-        // Langsung melakukan update data berdasarkan $request
-        CutiSetting::where('id', $id)->update($request->only('kuota_cuti_tahunan', 'cutiN_1', 'cutiN_2', 'kuota_cuti'));
+        $data = [
+            'kuota_cuti_tahunan' => $request->input('kuota_cuti_tahunan'),
+            'cutiN_1' => $request->input('cutiN_1'),
+            'cutiN_2' => $request->input('cutiN_2'),
+            'kuota_cuti' => $request->input('kuota_cuti'),
+            'cuti_set' => 1,
+        ];
+
+
+        CutiSetting::where('id', $id)->update($data);
 
         return redirect('/karyawan/pns/setting_cuti/' . $request->input('id_pegawai'))->with('success', 'Data cuti berhasil diperbarui');
     }
@@ -105,6 +116,7 @@ class KaryawanController extends Controller
     public function aktivasiCuti(Pegawai $pegawai)
     {
         $pegawai->hak_cuti = '1';
+        // dd($pegawai);
         $pegawai->save();
 
         $cutiSetting = new CutiSetting();
@@ -112,29 +124,25 @@ class KaryawanController extends Controller
         $cutiSetting->kuota_cuti_tahunan = 12;
         $cutiSetting->kuota_cuti = 12;
         $cutiSetting->save();
+        return redirect(url('/karyawan/' . $pegawai->kategori->slug . '/setting_cuti/' . $pegawai->id));
 
-        return redirect()->back()->with('cuti_success', 'Status cuti berhasil diaktifkan');
+        // return redirect()->back()->with('cuti_success', 'Status cuti berhasil diaktifkan');
     }
 
     public function print(Cuti $cuti)
     {
-        $j = $cuti->pegawai->bidang->id;
-
-        $kepala = DB::table('pegawais')
-            ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
-            ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
-            ->select('pegawais.*', 'bidangs.nama as bidang_nama', 'jabatans.nama as jabatan_nama')
-            ->where('pegawais.bidang_id', '=', $j)
-            ->where('jabatans.nama', '=', 'kepala')
-            ->get();
+        $id = $cuti->pegawai->bidang->id;
+        // dd($cuti);
+        $kabid = $this->printSuratCutiService->getKabid($id);
+        $sisaCuti = $this->hitungCutiTahunanService->sisaCuti($cuti->pegawai_id);
         $data = [
             'cuti' => $cuti,
-            'pegawais' => $cuti->pegawai::all(),
+            'pegawai' => Pegawai::find($cuti->pegawai_id),
             'bidang' => $cuti->pegawai->bidang,
-            'kabid' => $kepala
-
-
+            'kabid' => $kabid,
+            'sisa' => $sisaCuti
         ];
+        // dd($data);
 
         $pdf = Pdf::loadView('surat.template.cuti', $data)->setPaper('a4', 'potrait');
         return $pdf->download('surat.pdf');
@@ -145,24 +153,12 @@ class KaryawanController extends Controller
         // $mpdf->Output();
     }
 
-    // public function cuti(Pegawai $pegawai)
-    // {
-
-    //     return view('surat.cuti', [
-    //         'title' => "data pegawai",
-    //         "pegawai" => $pegawai,
-
-    //     ]);
-    // }
-
-
 
     public function printcutikontrak(Cuti $cuti)
     {
 
 
         $j = $cuti->pegawai->bidang->id;
-
         $kepala = DB::table('pegawais')
             ->join('bidangs', 'pegawais.bidang_id', '=', 'bidangs.id')
             ->join('jabatans', 'pegawais.jabatan_id', '=', 'jabatans.id')
