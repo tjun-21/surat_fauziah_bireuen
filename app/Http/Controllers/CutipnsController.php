@@ -58,7 +58,6 @@ class CutipnsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $tgl_mulai = strtotime($data['tgl_mulai']);
         $tgl_akhir = strtotime($data['tgl_akhir']);
         if ($tgl_mulai > $tgl_akhir) {
@@ -69,6 +68,7 @@ class CutipnsController extends Controller
         $selisih_detik = $tgl_akhir - $tgl_mulai;
         $jumlah = intval($selisih_detik / (60 * 60 * 24)) + 1;
         $jumlah_hari = $jumlah;
+        // dd($jumlah_hari);
 
         if ($data['jcuti_id'] == '1') {
             $paramater = $data['pegawai_id'];
@@ -78,6 +78,7 @@ class CutipnsController extends Controller
 
             // cek jumlah cuti yang sudah diambil + cuti yang mau di ambil 
             $jumlahCuti = $this->hitungCutiTahunanService->HitungPengambilanCuti($paramater);
+            // dd($jumlahCuti);
             $jumlahCuti = $jumlahCuti + $jumlah_hari;
 
             if ($jumlahCuti > $kuotaCuti) {
