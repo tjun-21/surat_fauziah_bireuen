@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Golongan;
 use App\Models\Kategori;
+use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -28,7 +29,8 @@ class GolonganController extends Controller
     {
         return view('datamaster.golongan.tambahgolongan',[
             'active' => 'datamaster',
-            'categories' => kategori::all()
+            'categories' => kategori::all(),
+            'pangkat' => pangkat::all()
        
             ]);
     }
@@ -42,11 +44,12 @@ class GolonganController extends Controller
            
             'nama' => 'required|max:255',
             'slug'    => 'required|unique:golongans',
-            'kategori_id' => 'required'
+            'kategori_id' => 'required',
+            'pangkat_id' => 'required'
 
         ]);
 
-        // $validatedData['id'] = auth()->user()->id; 
+         
 
         golongan :: create ($validatedData);
         return redirect('/golongan')->with('success','data berhasil ditambahkan');

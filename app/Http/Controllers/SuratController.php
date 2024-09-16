@@ -14,6 +14,7 @@ use App\Models\CutiSetting;
 // load services 
 use App\Services\HitungCutiTahunanService;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -66,6 +67,13 @@ class SuratController extends Controller
         ]);
     }
 
+    public function cutisetting($id)
+    {
+        $data = CutiSetting::findOrFail($id); // Mengambil data dari database
+
+        return view('modal', compact('data')); // Melewatkan data ke view
+    }
+
 
     // public function cuti( Pegawai $pegawai)
     // {
@@ -106,10 +114,12 @@ class SuratController extends Controller
     public function lihat(Rekomendasi $rekomendasi)
     {
 
+        $currentDate = Carbon::now();
 
         return view('surat.template.rekomendasi', [
             "rekom" => $rekomendasi,
             "pegawai" => $rekomendasi->pegawai,
+            't' => $currentDate->toDateString()
 
 
 

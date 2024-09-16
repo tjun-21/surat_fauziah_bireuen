@@ -107,7 +107,7 @@
             <table border="0" width="100%">
                 <tr>
                     <p class="text"> <font size="4" ><u>REKOMENDASI</u></font><br> 
-                    <font size="2">Nomor : 800/____/2023</font><br></p>
+                    <font size="2">Nomor : 800/____/2024</font><br></p>
                     
                    
                 </tr>

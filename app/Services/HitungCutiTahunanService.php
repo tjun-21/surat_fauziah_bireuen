@@ -117,11 +117,15 @@ class HitungCutiTahunanService
         }
 
         // Menyimpan total hari cuti ke dalam database
-        // $data = CutiSetting::where('pegawai_id', $param)->first();
-        // if ($data) {
-        //     $data->cuti_diambil = $totalHariCuti;
-        //     $data->save();
-        // }
+
+        $data = CutiSetting::where('pegawai_id', $param)->first();
+
+
+        if ($data) {
+
+            $data->cuti_diambil = $totalHariCuti;
+            $data->save();
+        }
 
         // Mengembalikan total hari cuti
         // dd($totalHariCuti);

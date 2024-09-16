@@ -58,14 +58,14 @@ class CutiController extends Controller
             'tgl_mulai' => 'required',
             'alamat_cuti' => 'required',
             'pt_1' => 'required',
-            'pt_1' => 'required',
+            'pt_2' => 'required',
             'alasan' => 'required',
             'tgl_akhir' => 'required',
 
 
         ]);
-        dd($validatedData);
-        // $validatedData['id'] = auth()->user()->id; 
+
+        $validatedData['id'] = auth()->user()->id; 
 
         Cuti::create($validatedData);
         return redirect('/surat/{kategori:nama}/{pegawai:id}')->with('success', 'data cuti berhasil ditambahkan');
@@ -100,6 +100,7 @@ class CutiController extends Controller
      */
     public function destroy(Cuti $cuti)
     {
-        //
+        $cuti->delete();
+        return redirect('/surat/pns')->with('success', 'data berhasil dihapus');
     }
 }

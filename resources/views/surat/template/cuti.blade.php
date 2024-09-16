@@ -270,77 +270,79 @@
                 </tr>
             </table>
 
-            <table cellspacing="0" cellspacing="0" class="p1 mb-2">
-                <tr>
-                    <td class="tg" colspan="4">VII. PERTIMBANGAN ATASAN LANGSUNG **</td>
-                </tr>
-                <tr align="center">
-                    <td class="tg" width="20%">DISETUJUI</td>
-                    <td class="tg" width="20%">PERUBAHAN****</td>
-                    <td class="tg" width="31%">DITANGGUHKAN****</td>
-                    <td class="tg" width="30%">TIDAK DISETUJUI</td>
-                </tr>
-                <tr>
-                    <td class="tg">.</td>
-                    <td class="tg"></td>
-                    <td class="tg"></td>
-                    <td class="tg"></td>
-                </tr>
-                <tr align="center">
-                    <td class="tg" colspan="3"></td>
+        <table cellspacing="0" cellspacing="0" class="p1 mb-2">
+            <tr>
+                <td class="tg" colspan="4">VII. PERTIMBANGAN ATASAN LANGSUNG **</td>
+            </tr>
+            <tr align="center">
+                <td class="tg" width="20%">DISETUJUI</td>
+                <td class="tg" width="20%">PERUBAHAN****</td>
+                <td class="tg" width="31%">DITANGGUHKAN****</td>
+                <td class="tg" width="30%">TIDAK DISETUJUI</td>
+            </tr>
+            <tr>
+                <td class="tg">.</td>
+                <td class="tg"></td>
+                <td class="tg"></td>
+                <td class="tg"></td>
+            </tr>
+            <tr align="center">
+                <td class="tg" colspan="3"></td>
+                
+                <td class="tg">Kabid Bidang {{ $bidang->nama }}
+       
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    @foreach ($kabid as $kabid)
+                        {{ $kabid->nama }}<br> 
+                        {{ $kabid->nip }}<br> 
+                    @endforeach
+              
+           
+               
+                </td>
+            </tr>
+        </table>
 
-                    <td class="tg">Kabid Bidang {{ $bidang->nama }}
+        <table cellspacing="0" cellspacing="0" class="p1 mb-2">
+            <tr>
+                <td class="tg" colspan="4">VIII. KEPUTUSAN PEJABAT BERWENANG MEMBERIKAN CUTI</td>
+            </tr>
+            
+            <tr align="center">
+                <td class="tg" width="20%">DISETUJUI</td>
+                <td class="tg" width="20%">PERUBAHAN****</td>
+                <td class="tg" width="31%">DITANGGUHKAN****</td>
+                <td class="tg" width="30%">TIDAK DISETUJUI</td>
+            </tr>
+            <tr>
+                <td class="tg">.</td>
+                <td class="tg"></td>
+                <td class="tg"></td>
+                <td class="tg"></td>
+            </tr>
+            <tr align="center">
+                <td class="tg" colspan="3"></td>
+                <td class="tg">Direktur RSUD dr. Fauziah Bireun
+                    <br>
+                    <br>
+                    <br>
+                    <br>
 
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        Kabid Nama <br>
-                        Nip. Kabid
+                    @foreach ($pegawais as $pegawai)
+                        @if($pegawai->jabatan && $pegawai->jabatan->nama == 'Direktur')
+                            {{ $pegawai->nama }}<br> 
+                            {{ $pegawai->nip }}<br> 
+                        @endif
+                    @endforeach
 
-
-
-                    </td>
-                </tr>
-            </table>
-
-            <table cellspacing="0" cellspacing="0" class="p1 mb-2">
-                <tr>
-                    <td class="tg" colspan="4">VIII. KEPUTUSAN PEJABAT BERWENANG MEMBERIKAN CUTI</td>
-                </tr>
-
-                <tr align="center">
-                    <td class="tg" width="20%">DISETUJUI</td>
-                    <td class="tg" width="20%">PERUBAHAN****</td>
-                    <td class="tg" width="31%">DITANGGUHKAN****</td>
-                    <td class="tg" width="30%">TIDAK DISETUJUI</td>
-                </tr>
-                <tr>
-                    <td class="tg">.</td>
-                    <td class="tg"></td>
-                    <td class="tg"></td>
-                    <td class="tg"></td>
-                </tr>
-                <tr align="center">
-                    <td class="tg" colspan="3"></td>
-                    <td class="tg">Direktur RSUD dr. Fauziah Bireun
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        Nama Direktur <br>
-                        Nip. Direktur
-
-
-                        <!-- {{ $pegawai->nama }}<br>
-                        {{ $pegawai->nip }}<br> -->
-
-
-                    </td>
-
-
-                </tr>
-            </table>
+                </td>
+             
+            
+            </tr>
+        </table>
 
 
 
