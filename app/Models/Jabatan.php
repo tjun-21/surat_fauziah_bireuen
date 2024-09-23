@@ -17,7 +17,7 @@ class Jabatan extends Model
     protected $guarded = ['id'];
 
     public function bidang(){
-        return $this->hasMany(bidang::class);
+        return $this->belongsTo(bidang::class);
     }
 
 

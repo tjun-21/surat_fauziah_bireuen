@@ -48,7 +48,7 @@
     <label for="kategori">Bidang</label>
     <select class="form-select" name="bidang_id">
         @foreach($bidangs as $bidang)
-          @if(old('bidang_id',$jabatan->bidang_id)== $bidangs->id)
+          @if(old('bidang_id',$jabatan->bidang_id)== $bidang->id)
             <option value="{{ $bidang->id }}" selected> {{ $bidang->nama }}</option>
           @else
           <option value="{{ $bidang->id }}"> {{ $bidang->nama }}</option>

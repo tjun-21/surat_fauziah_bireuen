@@ -100,7 +100,7 @@ class HitungCutiTahunanService
 
     public function HitungPengambilanCuti($param)
     {
-        dd($param);
+        // dd($param);
         // Pastikan model Cuti telah diimpor
         $dataCuti = DB::table('cutis')
             ->where('pegawai_id', $param)

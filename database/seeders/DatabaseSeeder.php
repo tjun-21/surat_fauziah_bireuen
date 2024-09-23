@@ -6,6 +6,7 @@ use App\Models\Fungsional;
 use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\Bidang;
+use App\Models\Pangkat;
 use App\Models\Kategori;
 use App\Models\Pegawai;
 use App\Models\Unit;
@@ -39,14 +40,14 @@ class DatabaseSeeder extends Seeder
 
 
         Jabatan::create([
-            'nama' => 'Manager',
-            'slug' => 'manager',
+            'nama' => 'WADIR PELAYANAN',
+            'slug' => 'WADIR-PELAYANAN',
             'kategori_id' => 1,
             'bidang_id'=>2 
         ]);
         Jabatan::create([
-            'nama' => 'Staff',
-            'slug' => 'staf',
+            'nama' => 'Direktur RSUD dr.Fauziah Bireuen',
+            'slug' => 'direktur',
             'kategori_id' => 1,
             'bidang_id'=>1
         ]);
@@ -66,13 +67,13 @@ class DatabaseSeeder extends Seeder
         Golongan::create([
             'nama' => 'VI',
             'slug' => 'vi',
-            'pangkat'=>'ahli madya',
+            'pangkat_id'=>'2',
             'kategori_id' => 1
         ]);
         Golongan::create([
             'nama' => 'V',
             'slug' => 'v',
-            'pangkat'=>'penata',
+            'pangkat_id'=>'1',
             'kategori_id' => 1
         ]);
 
@@ -80,6 +81,17 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Unit 19',
             'slug' => 'unit-19'
         ]);
+
+        Pangkat::create([
+            'nama' => ' pranata',
+            'slug' => 'pranata'
+        ]);
+
+        Pangkat::create([
+            'nama' => ' ahli madya',
+            'slug' => 'ahli-madya'
+        ]);
+
         Unit::create([
             'nama' => 'Unit 18',
             'slug' => 'unit-18'

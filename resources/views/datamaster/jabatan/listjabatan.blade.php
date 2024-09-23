@@ -33,6 +33,8 @@
             <tr>
               <th>No</th>
               <th>Nama</th>
+              <th>Kategori</th>
+              <th>Bidang</th>
               <th>Action</th>
    
             </tr>
@@ -45,6 +47,8 @@
             <tr>
               <td>{{ $no++ }}</td>
               <td>{{ $jabatan->nama }}</td>
+              <td>{{ $jabatan->kategori->nama }}</td>
+              <td>{{ $jabatan->bidang->nama }}</td>
               <td>
                 <a href="{{ route ('jabatan.update',$jabatan->id )}}/edit" class="badge bg-warning"><span data-feather="edit"></span> </a>
                 

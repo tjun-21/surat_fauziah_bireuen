@@ -18,7 +18,9 @@ class JabatanController extends Controller
     {
         return view('datamaster.jabatan.listjabatan',[
             'active' => 'datamaster',
-            "jabatan" => Jabatan::all()
+            "jabatan" => Jabatan::all(),
+            "bidang"=> Bidang::all(),
+            "kategori"=> Kategori::all()
             ]
     );
 
