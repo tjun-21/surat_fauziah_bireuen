@@ -22,7 +22,7 @@ class HitungCutiTahunanService
         $cutiSetting = DB::table('cuti_settings')
             ->where('pegawai_id', $param)
             ->first(); // Mengambil satu baris data
-
+        // dd($cutiSetting);
         // Jika data tidak ditemukan
         if (!$cutiSetting) {
             return [
@@ -100,14 +100,15 @@ class HitungCutiTahunanService
 
     public function HitungPengambilanCuti($param)
     {
-        dd($param);
+        // dd($param);
         // Pastikan model Cuti telah diimpor
         $dataCuti = DB::table('cutis')
             ->where('pegawai_id', $param)
             ->where('jcuti_id', 1)
+            ->where('status', 1)
             ->get();
 
-
+        // dd($dataCuti);
         // Menghitung total hari cuti
         // dd($dataCuti);
         $totalHariCuti = 0;
@@ -116,16 +117,11 @@ class HitungCutiTahunanService
         }
 
         // Menyimpan total hari cuti ke dalam database
-        $data = CutiSetting::where('pegawai_id', $param)->first();
-       
-   
-        if ($data) {
-          
-            $data->cuti_diambil = $totalHariCuti;
-            $data->save();
-            
-        }
-      
+        // $data = CutiSetting::where('pegawai_id', $param)->first();
+        // if ($data) {
+        //     $data->cuti_diambil = $totalHariCuti;
+        //     $data->save();
+        // }
 
         // Mengembalikan total hari cuti
         // dd($totalHariCuti);
