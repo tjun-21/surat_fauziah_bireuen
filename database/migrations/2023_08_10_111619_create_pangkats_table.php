@@ -4,33 +4,25 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGolongansTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('golongans', function (Blueprint $table) {
+        Schema::create('pangkats', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
-            $table->string('pangkat');
             $table->string('slug')->unique();
-            $table->foreignId('kategori_id');
-            $table->foreignId('pangkat_id');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('golongans');
+        Schema::dropIfExists('pangkats');
     }
-}
+};

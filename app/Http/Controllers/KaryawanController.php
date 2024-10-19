@@ -46,14 +46,6 @@ class KaryawanController extends Controller
         ]);
     }
 
-    // public function jabatan(Jabatan $jabatan)
-    // {
-    //     return view('dashboard.karyawan', [
-    //         "title" => $jabatan->nama,
-    //         "pegawais" => $jabatan->pegawai,
-    //         'active' => "karyawan"
-    //     ]);
-    // }
 
     public function detail(Pegawai $pegawai)
     {
@@ -209,5 +201,10 @@ class KaryawanController extends Controller
 
         $pdf = Pdf::loadView('surat.template.rekomendasi', $data)->setPaper('a4', 'potrait');
         return $pdf->stream('suratrekomedasi.pdf');
+    }
+    public function destroy(Rekomendasi $rekomendasi)
+    {
+        $rekomendasi->delete();
+        return redirect()->back()->with('success', 'data berhasil dihapus');
     }
 }

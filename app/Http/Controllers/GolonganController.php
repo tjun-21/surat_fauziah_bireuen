@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Golongan;
 use App\Models\Kategori;
+use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -14,11 +15,13 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        return view('datamaster.golongan.listgolongan',[
-            'active' => 'datamaster',
-            "golongan" => Golongan::all()
+        return view(
+            'datamaster.golongan.listgolongan',
+            [
+                'active' => 'datamaster',
+                "golongan" => Golongan::all()
             ]
-    );
+        );
     }
 
     /**
@@ -26,11 +29,12 @@ class GolonganController extends Controller
      */
     public function create()
     {
-        return view('datamaster.golongan.tambahgolongan',[
+        return view('datamaster.golongan.tambahgolongan', [
             'active' => 'datamaster',
-            'categories' => kategori::all()
-       
-            ]);
+            'categories' => kategori::all(),
+            'pangkat' => pangkat::all()
+
+        ]);
     }
 
     /**
@@ -39,17 +43,18 @@ class GolonganController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-           
+
             'nama' => 'required|max:255',
             'slug'    => 'required|unique:golongans',
-            'kategori_id' => 'required'
+            'kategori_id' => 'required',
+            'pangkat_id' => 'required'
 
         ]);
 
         // $validatedData['id'] = auth()->user()->id; 
 
-        golongan :: create ($validatedData);
-        return redirect('/golongan')->with('success','data berhasil ditambahkan');
+        golongan::create($validatedData);
+        return redirect('/golongan')->with('success', 'data berhasil ditambahkan');
     }
 
     /**
@@ -65,12 +70,12 @@ class GolonganController extends Controller
      */
     public function edit(Golongan $golongan)
     {
-        return view('datamaster.golongan.editgolongan',[
+        return view('datamaster.golongan.editgolongan', [
             'active' => 'datamaster',
             'golongan' => $golongan,
             'categories' => kategori::all()
-       
-            ]);
+
+        ]);
     }
 
     /**
@@ -78,22 +83,22 @@ class GolonganController extends Controller
      */
     public function update(Request $request, Golongan $golongan)
     {
-        $rules =[
-           
+        $rules = [
+
             'nama' => 'required|max:255',
             'kategori_id' => 'required'
 
         ];
-        if($request->slug != $golongan  ->slug){
+        if ($request->slug != $golongan->slug) {
 
             $rules['slug'] = 'required|unique:golongans';
+        }
+        $validatedData = $request->validate($rules);
 
-        } $validatedData = $request -> validate($rules);
+        golongan::where('id', $golongan->id)
+            ->update($validatedData);
 
-        golongan :: where ('id', $golongan ->id)
-                ->update($validatedData);
-
-        return redirect('/golongan')->with('success','data berhasil di ubah ditambahkan');
+        return redirect('/golongan')->with('success', 'data berhasil di ubah ditambahkan');
     }
 
     /**
@@ -102,14 +107,13 @@ class GolonganController extends Controller
     public function destroy(Golongan $golongan)
     {
         $golongan->delete();
-        return redirect('/golongan')->with('success','data berhasil dihapus');
+        return redirect('/golongan')->with('success', 'data berhasil dihapus');
     }
 
-    public function checkSlug(Request $request){
+    public function checkSlug(Request $request)
+    {
 
         $slug = SlugService::createSlug(golongan::class, 'slug', $request->golongan);
-        return response()->json(['slug'=>$slug]);
-
+        return response()->json(['slug' => $slug]);
     }
-    
 }

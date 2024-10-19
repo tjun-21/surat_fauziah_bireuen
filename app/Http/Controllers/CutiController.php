@@ -64,7 +64,7 @@ class CutiController extends Controller
 
 
         ]);
-        dd($validatedData);
+        // dd($validatedData);
         // $validatedData['id'] = auth()->user()->id; 
 
         Cuti::create($validatedData);

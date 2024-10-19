@@ -15,6 +15,8 @@ use App\Http\Controllers\Crudp3kController;
 use App\Http\Controllers\CutipnsController;
 use App\Http\Controllers\RekomendasiController;
 
+use App\Http\Controllers\PangkatController;
+
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\GolonganController;
@@ -23,28 +25,6 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SuratController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your appmaillication. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/home', function () {
-//     return view('home', [
-//         'title' => 'Home'
-//     ]);
-// });
-
-// Route::get('/about', function () {
-//     return view('about', [
-//         'title' => 'About'
-//     ]);
-// });
 
 Route::get('/', [LoginController::class, 'index']);
 
@@ -75,6 +55,8 @@ Route::put('/karyawan/pns/setting_cuti/update/{id}', [KaryawanController::class,
 Route::get('/formrekom/pns/{pegawai:id}', [SuratController::class, 'rekom']);
 Route::get('/lihatsurat/surat/{rekomendasi:id}', [SuratController::class, 'lihat']);
 Route::get('/karyawan/printrekomendasi/{rekomendasi:id}', [KaryawanController::class, 'printrekomendasi']);
+Route::delete('/karyawan/hapusrekomendasi/{rekomendasi:id}', [KaryawanController::class, 'destroy'])->name('karyawan.hapusrekomendasi');
+Route::get('/formrekom/pnss/{pegawai:id}', [KaryawanController::class, 'destroy']);
 
 
 // Route::get('/surat/pns/{pegawai:nik}/cuti', [SuratController::class, 'cuti']);
@@ -106,6 +88,7 @@ Route::get('/fungsional/checkSlug', [FungsionalController::class, 'checkSlug']);
 Route::get('/unit/checkSlug', [UnitController::class, 'checkSlug']);
 Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
 Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
+Route::get('/pangkat/checkSlug', [PangkatController::class, 'checkSlug']);
 
 //route menampilkan list pegawai
 Route::get('/PNS/{kategori:slug}', [CrudpnsController::class, 'kategori']);
@@ -143,9 +126,7 @@ Route::resource('/golongan', GolonganController::class);
 Route::resource('/fungsional', FungsionalController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/kategori', KategoriController::class);
-
-
-
+Route::resource('/pangkat', PangkatController::class);
 
 
 

@@ -16,12 +16,15 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        return view('datamaster.jabatan.listjabatan',[
-            'active' => 'datamaster',
-            "jabatan" => Jabatan::all()
+        return view(
+            'datamaster.jabatan.listjabatan',
+            [
+                'active' => 'datamaster',
+                "jabatan" => Jabatan::all(),
+                "bidang" => Bidang::all(),
+                "kategori" => Kategori::all()
             ]
-    );
-
+        );
     }
 
     /**
@@ -29,12 +32,12 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        return view('datamaster.jabatan.tambahjabatan',[
+        return view('datamaster.jabatan.tambahjabatan', [
             'active' => 'datamaster',
             'categories' => kategori::all(),
-            'bidangs'=>bidang::all()
-       
-            ]);
+            'bidangs' => bidang::all()
+
+        ]);
     }
 
     /**
@@ -42,9 +45,9 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validatedData = $request->validate([
-           
+
             'nama' => 'required|max:255',
             'slug'    => 'required|unique:jabatans',
             'kategori_id' => 'required',
@@ -54,8 +57,8 @@ class JabatanController extends Controller
 
         // $validatedData['id'] = auth()->user()->id; 
 
-        jabatan :: create ($validatedData);
-        return redirect('/jabatan')->with('success','data berhasil ditambahkan');
+        jabatan::create($validatedData);
+        return redirect('/jabatan')->with('success', 'data berhasil ditambahkan');
     }
 
     /**
@@ -71,13 +74,13 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        return view('datamaster.jabatan.editjabatan',[
+        return view('datamaster.jabatan.editjabatan', [
             'active' => 'datamaster',
             'jabatan' => $jabatan,
             'categories' => kategori::all(),
-            'bidangs'=>bidang::all()
-       
-            ]);
+            'bidangs' => bidang::all()
+
+        ]);
     }
 
     /**
@@ -85,38 +88,38 @@ class JabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        $rules =[
-           
+        $rules = [
+
             'nama' => 'required|max:255',
             'kategori_id' => 'required',
-            'bidang_id'=>'required'
+            'bidang_id' => 'required'
 
         ];
-        if($request->slug != $jabatan  ->slug){
+        if ($request->slug != $jabatan->slug) {
 
             $rules['slug'] = 'required|unique:jabatans';
+        }
+        $validatedData = $request->validate($rules);
 
-        } $validatedData = $request -> validate($rules);
+        jabatan::where('id', $jabatan->id)
+            ->update($validatedData);
 
-        jabatan :: where ('id', $jabatan ->id)
-                ->update($validatedData);
-
-        return redirect('/jabatan')->with('success','data berhasil ditambahkan');
+        return redirect('/jabatan')->with('success', 'data berhasil ditambahkan');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Jabatan $jabatan)
-    { 
+    {
         $jabatan->delete();
-        return redirect('/jabatan')->with('success','data berhasil dihapus');
+        return redirect('/jabatan')->with('success', 'data berhasil dihapus');
     }
 
-    public function checkSlug(Request $request){
+    public function checkSlug(Request $request)
+    {
 
         $slug = SlugService::createSlug(jabatan::class, 'slug', $request->jabatan);
-        return response()->json(['slug'=>$slug]);
-
+        return response()->json(['slug' => $slug]);
     }
 }
