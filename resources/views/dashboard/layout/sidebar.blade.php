@@ -161,6 +161,12 @@
                                     <p class="text-dark m-0">Unit Kerja</p>
                                 </a>
                             </li>
+                            <li class="list-group-item">
+                                <a href="/libur_nasional" class="nav-link ">
+                                    <p class="text-dark m-0">Libur Nasional</p>
+                                </a>
+                            </li>
+
 
 
                         </ul>

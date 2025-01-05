@@ -24,13 +24,7 @@
         <tr>
           <td>{{ $no++ }}</td>
           <td>{{ $s->jcuti->nama  }}</td>
-          <?php
-          $akhir = strtotime($s->tgl_akhir);
-          $awal = strtotime($s->tgl_mulai);
-          $jarak = $akhir - $awal;
-          $selisih = ($jarak / 60 / 60 / 24) + 1;
-          ?>
-          <td>{{ $selisih }}</td>
+          <td>{{ $s->j_hari }}</td>
           <td>{{ $s->tgl_mulai }}</td>
           <td>{{ $s->tgl_akhir }}</td>
           <td>

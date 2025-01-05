@@ -12,14 +12,16 @@ use Illuminate\Http\Request;
 
 // load services 
 use App\Services\HitungCutiTahunanService;
+use App\Services\LiburNasionalService;
 
 class CutipnsController extends Controller
 
 {
-    public $hitungCutiTahunanService;
+    public $hitungCutiTahunanService, $liburNasionalSevice;
     public function __construct()
     {
         $this->hitungCutiTahunanService = new HitungCutiTahunanService;
+        $this->liburNasionalSevice = new LiburNasionalService;
     }
     /**
      * Display a listing of the resource.
@@ -58,17 +60,30 @@ class CutipnsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         $tgl_mulai = strtotime($data['tgl_mulai']);
         $tgl_akhir = strtotime($data['tgl_akhir']);
         if ($tgl_mulai > $tgl_akhir) {
             $messages = 'Tanggal Akhir harus lebih besar dari tanggal mulai cuti';
             return redirect()->back()->with('cuti_fail', $messages);
         }
+        $jumlah_hari = 0;
+        $current_date = $tgl_mulai;
 
-        $selisih_detik = $tgl_akhir - $tgl_mulai;
-        $jumlah = intval($selisih_detik / (60 * 60 * 24)) + 1;
-        $jumlah_hari = $jumlah;
-        // dd($jumlah_hari);
+        $tanggal_libur = $this->liburNasionalSevice->getTanggalLiburNasional();
+
+        while ($current_date <= $tgl_akhir) {
+            $day_of_week = date('N', $current_date); // Format 'N': 1 (Senin) - 7 (Minggu)
+            $current_date_formatted = date('Y-m-d', $current_date); // Formatkan tanggal saat ini
+
+            // Hitung hanya jika bukan Sabtu (6), Minggu (7), dan bukan tanggal libur
+            if ($day_of_week != 6 && $day_of_week != 7 && !in_array($current_date_formatted, $tanggal_libur)) {
+                $jumlah_hari++;
+            }
+
+            $current_date = strtotime('+1 day', $current_date); // Tambah 1 hari
+        }
+
 
         if ($data['jcuti_id'] == '1') {
             $paramater = $data['pegawai_id'];
@@ -97,10 +112,11 @@ class CutipnsController extends Controller
                     'j_hari' => $jumlah_hari
 
                 ];
+                // dd($data_save);
 
                 $updateCutiSett = [
                     // 'id' => $idSett,
-                    'cuti_diambil' => $jumlahCuti
+                    'cuti_diambil' => $jumlah_hari
                 ];
 
                 Cuti::create($data_save);

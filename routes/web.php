@@ -25,6 +25,8 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SuratController;
 
+use App\Http\Controllers\LiburNasionalController;
+
 
 Route::get('/', [LoginController::class, 'index']);
 
@@ -86,6 +88,13 @@ Route::get('/jabatan/checkSlug', [JabatanController::class, 'checkSlug']);
 Route::get('/golongan/checkSlug', [GolonganController::class, 'checkSlug']);
 Route::get('/fungsional/checkSlug', [FungsionalController::class, 'checkSlug']);
 Route::get('/unit/checkSlug', [UnitController::class, 'checkSlug']);
+
+Route::get('/libur_nasional', [LiburNasionalController::class, 'index'])->name('libur_nasional.index');;
+Route::post('libur_nasional/proses', [LiburNasionalController::class, 'proses'])->name('libur_nasional.proses');
+Route::delete('libur_nasional/delete/{id}', [LiburNasionalController::class, 'delete'])->name('libur_nasional.delete');
+
+
+
 Route::get('/kategori/checkSlug', [KategoriController::class, 'checkSlug']);
 Route::get('/bidang/checkSlug', [BidangController::class, 'checkSlug']);
 Route::get('/pangkat/checkSlug', [PangkatController::class, 'checkSlug']);
